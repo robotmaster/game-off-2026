@@ -2,19 +2,28 @@
 
 [ext_resource type="Script" uid="uid://dwyrh8grva4ip" path="res://scripts/room.gd" id="1_5xnpp"]
 
-[node name="Room1" type="Node2D" unique_id=1685634979]
+[node name="Room1" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1", "color_2", "intersection_polygon", "intersection_collision")]
 script = ExtResource("1_5xnpp")
+color_1 = NodePath("Polygon2D")
+color_2 = NodePath("Polygon2D2")
+intersection_polygon = NodePath("IntersectionArea/Polygon2D")
+intersection_collision = NodePath("IntersectionArea/Collision")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=248563557]
+position = Vector2(361, -79)
 color = Color(3.9948522e-06, 0.9030698, 0.19205129, 1)
-polygon = PackedVector2Array(11, -11, -2, 8, 25, 11)
+polygon = PackedVector2Array(-70, -184, -534, 479, 97, 27)
 
 [node name="Polygon2D2" type="Polygon2D" parent="." unique_id=890089855]
 position = Vector2(11, -4)
 color = Color(1, 0.5902967, 0.8453913, 1)
-polygon = PackedVector2Array(11, -11, -2, 8, 25, 11)
+polygon = PackedVector2Array(213, -268, -212, 77, 448, 319)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=932035965]
+[node name="IntersectionArea" type="StaticBody2D" parent="." unique_id=932035965]
 position = Vector2(11, -4)
 
-[node name="Polygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=258365240]
+[node name="Polygon2D" type="Polygon2D" parent="IntersectionArea" unique_id=889051072]
+
+[node name="Collision" type="CollisionPolygon2D" parent="IntersectionArea" unique_id=1174695382]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=978009330]
