@@ -1,29 +1,38 @@
 [gd_scene format=3 uid="uid://b8ioekin6ogii"]
 
 [ext_resource type="Script" uid="uid://dwyrh8grva4ip" path="res://scripts/room.gd" id="1_5xnpp"]
+[ext_resource type="PackedScene" uid="uid://dxg36kacwicgt" path="res://scenes/player.tscn" id="2_gli6d"]
 
-[node name="Room1" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1", "color_2", "intersection_polygon", "intersection_collision")]
+[sub_resource type="GDScript" id="GDScript_277jj"]
+script/source = "extends Camera2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	zoom = Vector2(1, 1)
+"
+
+[node name="Room1" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1", "color_2", "intersection_static_body")]
 script = ExtResource("1_5xnpp")
 color_1 = NodePath("Polygon2D")
 color_2 = NodePath("Polygon2D2")
-intersection_polygon = NodePath("IntersectionArea/Polygon2D")
-intersection_collision = NodePath("IntersectionArea/Collision")
+intersection_static_body = NodePath("IntersectionArea")
 
 [node name="Polygon2D" type="Polygon2D" parent="." unique_id=248563557]
-position = Vector2(361, -79)
+position = Vector2(183, 50)
 color = Color(3.9948522e-06, 0.9030698, 0.19205129, 1)
-polygon = PackedVector2Array(-70, -184, -534, 479, 97, 27)
+polygon = PackedVector2Array(-334, -57, -223, 220, -157, -17)
 
 [node name="Polygon2D2" type="Polygon2D" parent="." unique_id=890089855]
-position = Vector2(11, -4)
+position = Vector2(165.63446, 43.440945)
+scale = Vector2(1.2482759, 0.4488189)
 color = Color(1, 0.5902967, 0.8453913, 1)
-polygon = PackedVector2Array(213, -268, -212, 77, 448, 319)
+polygon = PackedVector2Array(-67, -50, -212, 77, -88, 36)
 
 [node name="IntersectionArea" type="StaticBody2D" parent="." unique_id=932035965]
 position = Vector2(11, -4)
 
-[node name="Polygon2D" type="Polygon2D" parent="IntersectionArea" unique_id=889051072]
-
-[node name="Collision" type="CollisionPolygon2D" parent="IntersectionArea" unique_id=1174695382]
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=978009330]
+zoom = Vector2(3, 3)
+script = SubResource("GDScript_277jj")
+
+[node name="Player" parent="." unique_id=1936053006 instance=ExtResource("2_gli6d")]
