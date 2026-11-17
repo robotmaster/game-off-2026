@@ -1,0 +1,27 @@
+# Godot-specific
+.godot/
+/android/
+*.uid          # Godot 4.4+ UID files (optional, see note below)
+
+# Mono/C# (if using .NET)
+.mono/
+data_*/
+mono_crash.*.json
+
+# Export/build artifacts
+*.apk
+*.aab
+*.ipa
+*.exe
+*.dmg
+*.zip
+
+# OS-specific
+.DS_Store
+Thumbs.db
+*.apk
+*.aab
+*.ipa
+*.exe
+*.dmg
+*.zip
