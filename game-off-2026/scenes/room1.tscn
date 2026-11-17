@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b8ioekin6ogii"]
+
+[ext_resource type="Script" uid="uid://dwyrh8grva4ip" path="res://scripts/room.gd" id="1_5xnpp"]
+
+[node name="Room1" type="Node2D" unique_id=1685634979]
+script = ExtResource("1_5xnpp")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=248563557]
+color = Color(3.9948522e-06, 0.9030698, 0.19205129, 1)
+polygon = PackedVector2Array(11, -11, -2, 8, 25, 11)
+
+[node name="Polygon2D2" type="Polygon2D" parent="." unique_id=890089855]
+position = Vector2(11, -4)
+color = Color(1, 0.5902967, 0.8453913, 1)
+polygon = PackedVector2Array(11, -11, -2, 8, 25, 11)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=932035965]
+position = Vector2(11, -4)
+
+[node name="Polygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=258365240]
