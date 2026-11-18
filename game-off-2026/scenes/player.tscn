@@ -14,3 +14,21 @@ texture = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1655013475]
 shape = SubResource("RectangleShape2D_g2els")
+
+[node name="JumpBoostingTimer" type="Timer" parent="." unique_id=609621427]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.15
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="." unique_id=1492971695]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.1
+one_shot = true
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1841549992]
+unique_name_in_owner = true
+process_callback = 0
+wait_time = 0.07
+one_shot = true
