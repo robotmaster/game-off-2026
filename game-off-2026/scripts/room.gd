@@ -48,6 +48,13 @@ func _get_children_polygons() -> void:
 		_color_3_polygons.append(child)
 
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("switch_edit"):
+		polygon_editing += 1
+		if polygon_editing > 3:
+			polygon_editing = 0
+	_calculate_polygon_collisions()
+
+func _calculate_polygon_collisions() -> void:
 	
 	var overlap := _get_overlap_in_polygons()
 	
@@ -71,9 +78,13 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	for polygon_1 in _color_1_polygons:
 		for polygon_2 in _color_2_polygons:
 			for polygon_3 in _color_3_polygons:
-				var first_overlap := Geometry2D.intersect_polygons(polygon_1.polygon, polygon_2.polygon)
+				var global_polygon_1 := polygon_1.global_transform * polygon_1.polygon
+				var global_polygon_2 := polygon_2.global_transform * polygon_2.polygon
+				var global_polygon_3 := polygon_3.global_transform * polygon_3.polygon
+				
+				var first_overlap := Geometry2D.intersect_polygons(global_polygon_1, global_polygon_2)
 				for overlap_polygon in first_overlap:
-					var all_overlap := Geometry2D.intersect_polygons(overlap_polygon, polygon_3.polygon)
+					var all_overlap := Geometry2D.intersect_polygons(overlap_polygon, global_polygon_3)
 					for overlap_region in all_overlap:
 						overlap.append(overlap_region)
 	
