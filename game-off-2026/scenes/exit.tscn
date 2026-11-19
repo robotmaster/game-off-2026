@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://yprk1w2gy2vs"]
+
+[ext_resource type="Texture2D" uid="uid://d1wghy6r8ij2f" path="res://sprites/exit.png" id="1_l0aq0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_apwu6"]
+size = Vector2(26, 30)
+
+[node name="Exit" type="Area2D" unique_id=1218272071]
+
+[node name="ExitSprite" type="Sprite2D" parent="." unique_id=1893327708]
+texture = ExtResource("1_l0aq0")
+offset = Vector2(0, -15)
+
+[node name="Area2D" type="CollisionShape2D" parent="." unique_id=1261109021]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_apwu6")

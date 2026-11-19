@@ -46,12 +46,7 @@ func _get_children_polygons() -> void:
 
 func _physics_process(_delta: float) -> void:
 	
-	#var polygon_1_global := color_1.global_transform * color_1.polygon
-	#var polygon_2_global := color_2.global_transform * color_2.polygon
-	
 	var overlap := _get_overlap_in_polygons()
-	
-	#Geometry2D.intersect_polygons(polygon_1_global, polygon_2_global)
 	
 	var children := intersection_static_body.get_children()
 	for child in children:
