@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@export var Room : RoomRoot
 
 const SPEED = 180.0
 const JUMP_VELOCITY = -200.0
@@ -11,6 +12,9 @@ const JUMP_STOP_SPEED_CUT := 1.8
 var _holding_jump_after_jump := false
 
 func _physics_process(delta: float) -> void:
+	if not Room or Room.polygon_editing != 0:
+		return 
+	
 	if not Input.is_action_pressed("up"):
 		_holding_jump_after_jump = false
 		%JumpBoostingTimer.stop()
