@@ -52,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 		polygon_editing += 1
 		if polygon_editing > 3:
 			polygon_editing = 0
+	
 	_calculate_polygon_collisions()
 
 func _calculate_polygon_collisions() -> void:
@@ -62,9 +63,9 @@ func _calculate_polygon_collisions() -> void:
 	for child in children:
 		child.queue_free()
 	for polygon_shape in overlap:
-		var new_polygon_2d := Polygon2D.new()
-		new_polygon_2d.polygon = polygon_shape
-		intersection_static_body.add_child(new_polygon_2d)
+		#var new_polygon_2d := Polygon2D.new()
+		#new_polygon_2d.polygon = polygon_shape
+		#intersection_static_body.add_child(new_polygon_2d)
 		
 		var new_collision := CollisionPolygon2D.new()
 		new_collision.polygon = polygon_shape
@@ -89,3 +90,27 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 						overlap.append(overlap_region)
 	
 	return overlap
+
+func get_current_polygon_editing() -> Node2D:
+	match polygon_editing:
+		0:
+			return null
+		1:
+			return color_1_parent
+		2:
+			return color_2_parent
+		3:
+			return color_3_parent
+	return null
+
+func _process(delta: float) -> void:
+	queue_redraw()
+
+func _draw() -> void:
+	var overlap := _get_overlap_in_polygons()
+	
+	var children := intersection_static_body.get_children()
+	for child in children:
+		child.queue_free()
+	for polygon_shape in overlap:
+		draw_colored_polygon(polygon_shape, Color.WHITE)

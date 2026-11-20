@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://dfwyfvy5mmhq0" path="res://scripts/polygons.gd" id="4_jxe34"]
 [ext_resource type="PackedScene" uid="uid://dxg36kacwicgt" path="res://scenes/player.tscn" id="4_qvc4m"]
 [ext_resource type="PackedScene" uid="uid://yprk1w2gy2vs" path="res://scenes/exit.tscn" id="5_jn645"]
+[ext_resource type="Script" uid="uid://ck3epd51kkhqq" path="res://scripts/polygon_parent.gd" id="5_qvc4m"]
+[ext_resource type="Script" uid="uid://qsfnwordlsme" path="res://scripts/polygon_other_draws.gd" id="6_7dqbv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
@@ -30,31 +32,47 @@ func _ready() -> void:
 
 [node name="Room" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1_parent", "color_2_parent", "color_3_parent", "intersection_static_body")]
 script = ExtResource("1_14vil")
-color_1_parent = NodePath("Polygons/Red")
-color_2_parent = NodePath("Polygons/Blue")
-color_3_parent = NodePath("Polygons/Green")
-intersection_static_body = NodePath("IntersectionArea")
+color_1_parent = NodePath("Polygons/PolygonCanvas/Red")
+color_2_parent = NodePath("Polygons/PolygonCanvas/Blue")
+color_3_parent = NodePath("Polygons/PolygonCanvas/Green")
+intersection_static_body = NodePath("Polygons/IntersectionArea")
 
 [node name="Tiles" type="TileMapLayer" parent="." unique_id=235629107]
 tile_map_data = PackedByteArray("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")
 tile_set = ExtResource("2_jxe34")
 
-[node name="Polygons" type="CanvasGroup" parent="." unique_id=1378756590 node_paths=PackedStringArray("Room")]
-material = SubResource("ShaderMaterial_277jj")
+[node name="Polygons" type="Node2D" parent="." unique_id=1591896628]
+process_physics_priority = 1000
 script = ExtResource("4_jxe34")
-Room = NodePath("..")
 
-[node name="Red" type="Node2D" parent="Polygons" unique_id=349891011]
+[node name="PolygonCanvas" type="CanvasGroup" parent="Polygons" unique_id=1378756590]
+material = SubResource("ShaderMaterial_277jj")
+
+[node name="Red" type="Node2D" parent="Polygons/PolygonCanvas" unique_id=349891011 node_paths=PackedStringArray("Room")]
+unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_jn645")
+script = ExtResource("5_qvc4m")
+Room = NodePath("../../..")
 
-[node name="Blue" type="Node2D" parent="Polygons" unique_id=1709256072]
+[node name="Blue" type="Node2D" parent="Polygons/PolygonCanvas" unique_id=1709256072 node_paths=PackedStringArray("Room")]
+unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_qvc4m")
+script = ExtResource("5_qvc4m")
+Room = NodePath("../../..")
 
-[node name="Green" type="Node2D" parent="Polygons" unique_id=737133991]
+[node name="Green" type="Node2D" parent="Polygons/PolygonCanvas" unique_id=737133991 node_paths=PackedStringArray("Room")]
+unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_7dqbv")
+script = ExtResource("5_qvc4m")
+Room = NodePath("../../..")
 
-[node name="IntersectionArea" type="StaticBody2D" parent="." unique_id=932035965]
+[node name="IntersectionArea" type="StaticBody2D" parent="Polygons" unique_id=932035965]
 position = Vector2(11, -4)
+
+[node name="OtherDraws" type="Node2D" parent="Polygons" unique_id=1542420041 node_paths=PackedStringArray("Room")]
+unique_name_in_owner = true
+script = ExtResource("6_7dqbv")
+Room = NodePath("../..")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=978009330]
 zoom = Vector2(3, 3)
