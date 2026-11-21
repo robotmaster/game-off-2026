@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="game_off_2026"
-run/main_scene="uid://c3h6o5dpp7wjk"
+run/main_scene="uid://c0xqx3aiy2bhd"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

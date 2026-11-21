@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var PolygonMoveArea: Area2D
 
 const SPEED = 170.0
-const JUMP_VELOCITY = -200.0
+const JUMP_VELOCITY = -210.0
 
 const FLOOR_GRAVITY_MULT = 4
 const DOWNWARD_GRAVITY_MULT = 1.2
@@ -21,6 +21,8 @@ func _physics_process(delta: float) -> void:
 	
 	if not Room or Room.is_editing:
 		return 
+	if test_move(global_transform, Vector2.ZERO):
+		return
 	
 	_handle_win()
 	if not Input.is_action_pressed("up"):

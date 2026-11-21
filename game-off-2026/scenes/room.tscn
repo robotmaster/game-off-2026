@@ -18,7 +18,7 @@ shader = ExtResource("3_qtoah")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
-shader_parameter/ALPHA = 0.6
+shader_parameter/ALPHA = 0.5
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jn645"]
 blend_mode = 1
@@ -38,6 +38,7 @@ func _ready() -> void:
 "
 
 [node name="Room" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1_parent", "color_2_parent", "color_3_parent", "intersection_static_body")]
+process_physics_priority = 1000
 script = ExtResource("1_14vil")
 color_1_parent = NodePath("MainPolygons/PolygonCanvas/Red")
 color_2_parent = NodePath("MainPolygons/PolygonCanvas/Blue")
