@@ -18,6 +18,6 @@ func _draw() -> void:
 			
 		var polygon_array := polygon_2d.global_transform * polygon_2d.polygon
 		
-		var polygon_outline := PolygonTools.make_inwawrd_outline_of_polygon(polygon_array, 3)
+		var polygon_outline := PolygonTools.make_inwawrd_outline_of_polygon(polygon_array, POLYGON_OUTLINE_WIDTH)
 		
 		draw_colored_polygon(polygon_outline, POLYGON_OUTLINE_COLOR * polygon_2d.color)

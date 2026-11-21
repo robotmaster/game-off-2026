@@ -9,21 +9,25 @@ tile_map_data = PackedByteArray("AADs/woAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAA
 
 [node name="Polygon2D" type="Polygon2D" parent="Polygons/PolygonCanvas/Red" parent_id_path=PackedInt32Array(349891011) index="0" unique_id=1621396020]
 use_parent_material = true
+position = Vector2(0, -48)
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(192, -48, 192, -16, -208, 144, -240, 144)
+polygon = PackedVector2Array(192, -48, 192, -16, -240, 176, -240, 144)
 
 [node name="Polygon2D" type="Polygon2D" parent="Polygons/PolygonCanvas/Blue" parent_id_path=PackedInt32Array(1709256072) index="0" unique_id=1219641244]
 use_parent_material = true
+position = Vector2(0, -48)
 color = Color(0, 0, 1, 1)
-polygon = PackedVector2Array(192, 0, 192, 32, -208, 192, -240, 192)
+polygon = PackedVector2Array(192, 0, 192, 32, -240, 224, -240, 192)
 
 [node name="Polygon2D" type="Polygon2D" parent="Polygons/PolygonCanvas/Green" parent_id_path=PackedInt32Array(737133991) index="0" unique_id=1848403671]
 use_parent_material = true
+position = Vector2(0, -48)
+scale = Vector2(1, 1.0769231)
 color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(192, -64, 192, -96, -240, 96, -208, 96)
+polygon = PackedVector2Array(192, -64, 192, -96, -240.00002, 82.28572, -240, 112)
 
 [node name="Exit" parent="." index="3" unique_id=1218272071]
 position = Vector2(224, -80)
 
 [node name="Player" parent="." index="4" unique_id=1936053006]
-position = Vector2(-256, 128)
+position = Vector2(-272, 144)

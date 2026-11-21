@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dxg36kacwicgt" path="res://scenes/player.tscn" id="4_qvc4m"]
 [ext_resource type="PackedScene" uid="uid://yprk1w2gy2vs" path="res://scenes/exit.tscn" id="5_jn645"]
 [ext_resource type="Script" uid="uid://ck3epd51kkhqq" path="res://scripts/polygon_parent.gd" id="5_qvc4m"]
-[ext_resource type="Script" uid="uid://qsfnwordlsme" path="res://scripts/polygon_other_draws.gd" id="6_7dqbv"]
+[ext_resource type="Script" uid="uid://qsfnwordlsme" path="res://scripts/current_polygon_outline.gd" id="6_7dqbv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
@@ -21,9 +21,6 @@ blend_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7dqbv"]
 blend_mode = 1
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ybpoa"]
-blend_mode = 2
 
 [sub_resource type="GDScript" id="GDScript_277jj"]
 script/source = "extends Camera2D
@@ -77,14 +74,12 @@ unique_name_in_owner = true
 script = ExtResource("6_7dqbv")
 Room = NodePath("../..")
 
-[node name="Polygon2D" type="Polygon2D" parent="Polygons/CurrentPolygonOutline" unique_id=1055243958]
-material = SubResource("CanvasItemMaterial_ybpoa")
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=978009330]
 zoom = Vector2(3, 3)
 script = SubResource("GDScript_277jj")
 
 [node name="Exit" parent="." unique_id=1218272071 instance=ExtResource("5_jn645")]
 
-[node name="Player" parent="." unique_id=1936053006 node_paths=PackedStringArray("Room") instance=ExtResource("4_qvc4m")]
+[node name="Player" parent="." unique_id=1936053006 node_paths=PackedStringArray("Room", "Exit") instance=ExtResource("4_qvc4m")]
 Room = NodePath("..")
+Exit = NodePath("../Exit")

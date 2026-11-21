@@ -1,6 +1,9 @@
 extends Node2D
 class_name RoomRoot
 
+@export var next_room : PackedScene
+
+@export_group("Don't Touch")
 @export var color_1_parent : Node2D
 @export var color_2_parent : Node2D
 @export var color_3_parent : Node2D
@@ -11,7 +14,8 @@ var _color_1_polygons : Array[Polygon2D]
 var _color_2_polygons : Array[Polygon2D]
 var _color_3_polygons : Array[Polygon2D]
 
-var polygon_editing := 0
+var polygon_editing := 1
+var is_editing := false
 
 func _ready() -> void:
 	_get_children_polygons()
@@ -47,11 +51,16 @@ func _get_children_polygons() -> void:
 		assert(child is Polygon2D, "Child is not polygon2D")
 		_color_3_polygons.append(child)
 
+
 func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("toggle_play"):
+		is_editing = not is_editing
 	if Input.is_action_just_pressed("switch_edit"):
 		polygon_editing += 1
 		if polygon_editing > 3:
-			polygon_editing = 0
+			polygon_editing = 1
+	if Input.is_action_just_pressed("reset"):
+		reset_room()
 	
 	_calculate_polygon_collisions()
 
@@ -92,9 +101,9 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	return overlap
 
 func get_current_polygon_editing() -> Node2D:
+	if not is_editing:
+		return null
 	match polygon_editing:
-		0:
-			return null
 		1:
 			return color_1_parent
 		2:
@@ -103,14 +112,8 @@ func get_current_polygon_editing() -> Node2D:
 			return color_3_parent
 	return null
 
-func _process(delta: float) -> void:
-	queue_redraw()
+func reset_room() -> void:
+	get_tree().reload_current_scene()
 
-func _draw() -> void:
-	var overlap := _get_overlap_in_polygons()
-	
-	var children := intersection_static_body.get_children()
-	for child in children:
-		child.queue_free()
-	for polygon_shape in overlap:
-		draw_colored_polygon(polygon_shape, Color.WHITE)
+func go_to_next_room() -> void:
+	get_tree().change_scene_to_packed(next_room)

@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
 @export var Room : RoomRoot
+@export var Exit : Area2D
 
-const SPEED = 180.0
+const SPEED = 170.0
 const JUMP_VELOCITY = -200.0
 
 const FLOOR_GRAVITY_MULT = 4
@@ -12,9 +13,10 @@ const JUMP_STOP_SPEED_CUT := 1.8
 var _holding_jump_after_jump := false
 
 func _physics_process(delta: float) -> void:
-	if not Room or Room.polygon_editing != 0:
+	if not Room or Room.is_editing:
 		return 
 	
+	_handle_win()
 	if not Input.is_action_pressed("up"):
 		_holding_jump_after_jump = false
 		%JumpBoostingTimer.stop()
@@ -51,3 +53,8 @@ func _handle_horizontal_movement(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+func _handle_win() -> void:
+	if Exit.overlaps_body(self):
+		if is_on_floor():
+			Room.go_to_next_room()
