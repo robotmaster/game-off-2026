@@ -2,7 +2,7 @@ extends Node2D
 
 @export var Room : RoomRoot
 
-const POLYGON_OUTLINE_COLOR = Color(0, 0, 0, 0.3)
+const POLYGON_OUTLINE_COLOR = Color(0.4, 0.4, 0.4, 0.7)
 const POLYGON_OUTLINE_WIDTH = 2.0
 
 func _process(_delta: float) -> void:
@@ -18,5 +18,6 @@ func _draw() -> void:
 			
 		var polygon_array := polygon_2d.global_transform * polygon_2d.polygon
 		
+		var polygon_outline := PolygonTools.make_inwawrd_outline_of_polygon(polygon_array, 3)
 		
-		draw_colored_polygon(PolygonTools.make_inwawrd_outline_of_polygon(polygon_array, 3), POLYGON_OUTLINE_COLOR)
+		draw_colored_polygon(polygon_outline, POLYGON_OUTLINE_COLOR * polygon_2d.color)

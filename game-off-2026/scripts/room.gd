@@ -63,9 +63,9 @@ func _calculate_polygon_collisions() -> void:
 	for child in children:
 		child.queue_free()
 	for polygon_shape in overlap:
-		#var new_polygon_2d := Polygon2D.new()
-		#new_polygon_2d.polygon = polygon_shape
-		#intersection_static_body.add_child(new_polygon_2d)
+		var new_polygon_2d := Polygon2D.new()
+		new_polygon_2d.polygon = polygon_shape
+		intersection_static_body.add_child(new_polygon_2d)
 		
 		var new_collision := CollisionPolygon2D.new()
 		new_collision.polygon = polygon_shape
