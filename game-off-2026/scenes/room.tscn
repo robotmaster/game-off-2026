@@ -22,6 +22,9 @@ blend_mode = 1
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7dqbv"]
 blend_mode = 1
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ybpoa"]
+blend_mode = 2
+
 [sub_resource type="GDScript" id="GDScript_277jj"]
 script/source = "extends Camera2D
 
@@ -69,10 +72,13 @@ Room = NodePath("../../..")
 [node name="IntersectionArea" type="StaticBody2D" parent="Polygons" unique_id=932035965]
 position = Vector2(11, -4)
 
-[node name="OtherDraws" type="Node2D" parent="Polygons" unique_id=1542420041 node_paths=PackedStringArray("Room")]
+[node name="CurrentPolygonOutline" type="Node2D" parent="Polygons" unique_id=1542420041 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
 script = ExtResource("6_7dqbv")
 Room = NodePath("../..")
+
+[node name="Polygon2D" type="Polygon2D" parent="Polygons/CurrentPolygonOutline" unique_id=1055243958]
+material = SubResource("CanvasItemMaterial_ybpoa")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=978009330]
 zoom = Vector2(3, 3)

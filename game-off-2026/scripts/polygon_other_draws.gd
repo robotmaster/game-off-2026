@@ -6,6 +6,7 @@ const POLYGON_OUTLINE_COLOR = Color(0, 0, 0, 0.3)
 const POLYGON_OUTLINE_WIDTH = 2.0
 
 func _process(_delta: float) -> void:
+	Geometry2D.clip_polygons()
 	queue_redraw()
 
 func _draw() -> void:
@@ -13,6 +14,11 @@ func _draw() -> void:
 	if current_editing == null:
 		return
 	
+	
 	for polygon_2d : Polygon2D in current_editing.get_children():
+		
 		var polygon_array := polygon_2d.global_transform * polygon_2d.polygon
-		draw_colored_polygon(polygon_array, POLYGON_OUTLINE_COLOR)
+		$Polygon2D.polygon = polygon_array
+		
+		for offset_polygon in Geometry2D.offset_polygon(polygon_array, -3):
+			draw_colored_polygon(offset_polygon, POLYGON_OUTLINE_COLOR)
