@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var Room : RoomRoot
 @export var Exit : Area2D
+@export var PolygonMoveArea: Area2D
 
 const SPEED = 170.0
 const JUMP_VELOCITY = -200.0
@@ -13,6 +14,11 @@ const JUMP_STOP_SPEED_CUT := 1.8
 var _holding_jump_after_jump := false
 
 func _physics_process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("toggle_play"):
+		if PolygonMoveArea.overlaps_body(self):
+			Room.toggle_editing()
+	
 	if not Room or Room.is_editing:
 		return 
 	

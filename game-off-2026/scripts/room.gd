@@ -53,8 +53,6 @@ func _get_children_polygons() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("toggle_play"):
-		is_editing = not is_editing
 	if Input.is_action_just_pressed("switch_edit"):
 		polygon_editing += 1
 		if polygon_editing > 3:
@@ -111,6 +109,9 @@ func get_current_polygon_editing() -> Node2D:
 		3:
 			return color_3_parent
 	return null
+
+func toggle_editing() -> void:
+	is_editing = not is_editing
 
 func reset_room() -> void:
 	get_tree().reload_current_scene()
