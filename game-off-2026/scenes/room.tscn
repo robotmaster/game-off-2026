@@ -39,6 +39,16 @@ blend_mode = 1
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_23wr2"]
 shader = ExtResource("9_3j2fx")
 
+[sub_resource type="GDScript" id="GDScript_dynfe"]
+script/source = "extends CanvasLayer
+
+
+func _ready() -> void:
+	for child in get_children():
+		
+		child.position += get_viewport().get_visible_rect().size / 2
+"
+
 [sub_resource type="GDScript" id="GDScript_277jj"]
 script/source = "extends Camera2D
 
@@ -121,17 +131,20 @@ Room = NodePath("../../..")
 script = ExtResource("9_eom3m")
 Room = NodePath("../../..")
 
-[node name="PolygonInfoUI" type="Node2D" parent="." unique_id=875030579 node_paths=PackedStringArray("Room")]
-script = ExtResource("10_w68ji")
-Room = NodePath("..")
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1856965162]
+script = SubResource("GDScript_dynfe")
 
-[node name="ColorBg" type="Sprite2D" parent="PolygonInfoUI" unique_id=460498318]
+[node name="PolygonInfoUI" type="Node2D" parent="CanvasLayer" unique_id=875030579 node_paths=PackedStringArray("Room")]
+script = ExtResource("10_w68ji")
+Room = NodePath("../..")
+
+[node name="ColorBg" type="Sprite2D" parent="CanvasLayer/PolygonInfoUI" unique_id=460498318]
 use_parent_material = true
 position = Vector2(-285, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 
-[node name="ColorFill" type="ColorRect" parent="PolygonInfoUI" unique_id=848166506]
+[node name="ColorFill" type="ColorRect" parent="CanvasLayer/PolygonInfoUI" unique_id=848166506]
 use_parent_material = true
 offset_left = -296.0
 offset_top = -168.0
@@ -139,28 +152,28 @@ offset_right = -274.0
 offset_bottom = -146.0
 color = Color(1, 0, 0, 1)
 
-[node name="Translate" type="Sprite2D" parent="PolygonInfoUI" unique_id=1717125355]
+[node name="Translate" type="Sprite2D" parent="CanvasLayer/PolygonInfoUI" unique_id=1717125355]
 use_parent_material = true
 position = Vector2(-245, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 frame = 1
 
-[node name="Rotate" type="Sprite2D" parent="PolygonInfoUI" unique_id=449286113]
+[node name="Rotate" type="Sprite2D" parent="CanvasLayer/PolygonInfoUI" unique_id=449286113]
 use_parent_material = true
 position = Vector2(-205, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 frame = 2
 
-[node name="Scale" type="Sprite2D" parent="PolygonInfoUI" unique_id=316647045]
+[node name="Scale" type="Sprite2D" parent="CanvasLayer/PolygonInfoUI" unique_id=316647045]
 use_parent_material = true
 position = Vector2(-165, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 frame = 3
 
-[node name="WhiteHighlight" type="ColorRect" parent="PolygonInfoUI" unique_id=1859770529]
+[node name="WhiteHighlight" type="ColorRect" parent="CanvasLayer/PolygonInfoUI" unique_id=1859770529]
 use_parent_material = true
 offset_left = -300.0
 offset_top = -172.0
@@ -179,3 +192,6 @@ script = SubResource("GDScript_277jj")
 Room = NodePath("..")
 Exit = NodePath("../Exit")
 PolygonMoveArea = NodePath("../SpecialElements/PolygonMoveArea")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1055200988]
+color = Color(0.8089983, 0.8089983, 0.8089982, 1)
