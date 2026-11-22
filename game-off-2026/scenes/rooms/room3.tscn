@@ -10,34 +10,19 @@ tile_map_data = PackedByteArray("AADs/woAAAAAAAAAAAABAAsAAAAAAAAAAAACAAsAAAAAAAA
 [node name="Polygon2D" type="Polygon2D" parent="SpecialElements/PolygonMoveArea/Visuals" parent_id_path=PackedInt32Array(1923202154) index="0" unique_id=494434493]
 polygon = PackedVector2Array(-256, 160, -256, 96, -304, 96, -304, 160)
 
-[node name="Red" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="0" unique_id=349891011]
-moving_allowed = null
-rotating_allowed = null
-scaling_allowed = null
-
-[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Red" index="0" unique_id=1621396020]
+[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Red" parent_id_path=PackedInt32Array(349891011) index="0" unique_id=1621396020]
 use_parent_material = true
 position = Vector2(0, -48)
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(192, -48, 192, -16, -240, 176, -240, 144)
 
-[node name="Blue" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="1" unique_id=1709256072]
-moving_allowed = null
-rotating_allowed = null
-scaling_allowed = null
-
-[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Blue" index="0" unique_id=1219641244]
+[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Blue" parent_id_path=PackedInt32Array(1709256072) index="0" unique_id=1219641244]
 use_parent_material = true
 position = Vector2(0, -48)
 color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(192, 0, 192, 32, -240, 224, -240, 192)
 
-[node name="Green" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="2" unique_id=737133991]
-moving_allowed = null
-rotating_allowed = null
-scaling_allowed = null
-
-[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Green" index="0" unique_id=1848403671]
+[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Green" parent_id_path=PackedInt32Array(737133991) index="0" unique_id=1848403671]
 use_parent_material = true
 position = Vector2(0, -48)
 scale = Vector2(1, 1.0769231)

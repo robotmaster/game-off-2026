@@ -18,10 +18,11 @@ polygon = PackedVector2Array(-160, 48, -112, 80, -208, 144, -208, 48)
 [node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Blue" parent_id_path=PackedInt32Array(1709256072) index="0" unique_id=1219641244]
 use_parent_material = true
 color = Color(0, 0, 1, 1)
-polygon = PackedVector2Array(-160, 48, 192, 32, -208, 192, -192, 80)
+polygon = PackedVector2Array(-160, 48, 64, 112, -64, 128, -192, 80)
 
 [node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Green" parent_id_path=PackedInt32Array(737133991) index="0" unique_id=1848403671]
 use_parent_material = true
+position = Vector2(-16, -80)
 color = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(-128, 80, -208, 48, -240, 96, -208, 96)
 

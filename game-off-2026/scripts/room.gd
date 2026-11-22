@@ -10,46 +10,28 @@ class_name RoomRoot
 
 @export var intersection_static_body : StaticBody2D
 
-var _color_1_polygons : Array[Polygon2D]
-var _color_2_polygons : Array[Polygon2D]
-var _color_3_polygons : Array[Polygon2D]
-
 var polygon_editing := 1
 var is_editing := false
 
 func _ready() -> void:
-	_get_children_polygons()
 	
-	for polygon_2d : Polygon2D in _color_1_polygons:
+	for polygon_2d : Polygon2D in get_children_polygons(color_1_parent):
 		var polygon_global := polygon_2d.global_transform * polygon_2d.polygon
 		polygon_2d.polygon = polygon_global
 		polygon_2d.global_transform = Transform2D()
 	
-	for polygon_2d : Polygon2D in _color_2_polygons:
+	for polygon_2d : Polygon2D in get_children_polygons(color_2_parent):
 		var polygon_global := polygon_2d.global_transform * polygon_2d.polygon
 		polygon_2d.polygon = polygon_global
 		polygon_2d.global_transform = Transform2D()
 		
-	for polygon_2d : Polygon2D in _color_3_polygons:
+	for polygon_2d : Polygon2D in get_children_polygons(color_3_parent):
 		var polygon_global := polygon_2d.global_transform * polygon_2d.polygon
 		polygon_2d.polygon = polygon_global
 		polygon_2d.global_transform = Transform2D()
 	
 	intersection_static_body.global_transform = Transform2D()
 	intersection_static_body.global_transform = Transform2D()
-
-func _get_children_polygons() -> void:
-	for child in color_1_parent.get_children():
-		assert(child is Polygon2D, "Child is not polygon2D")
-		_color_1_polygons.append(child)
-	
-	for child in color_2_parent.get_children():
-		assert(child is Polygon2D, "Child is not polygon2D")
-		_color_2_polygons.append(child)
-	
-	for child in color_3_parent.get_children():
-		assert(child is Polygon2D, "Child is not polygon2D")
-		_color_3_polygons.append(child)
 
 
 func _physics_process(_delta: float) -> void:
@@ -83,9 +65,9 @@ func _calculate_polygon_collisions() -> void:
 func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	var overlap : Array[PackedVector2Array] = []
 	
-	for polygon_1 in _color_1_polygons:
-		for polygon_2 in _color_2_polygons:
-			for polygon_3 in _color_3_polygons:
+	for polygon_1 in get_children_polygons(color_1_parent):
+		for polygon_2 in get_children_polygons(color_2_parent):
+			for polygon_3 in get_children_polygons(color_3_parent):
 				var global_polygon_1 := polygon_1.global_transform * polygon_1.polygon
 				var global_polygon_2 := polygon_2.global_transform * polygon_2.polygon
 				var global_polygon_3 := polygon_3.global_transform * polygon_3.polygon
@@ -99,6 +81,14 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	return overlap
 
 
+
+func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:
+	var children := []
+	
+	for child in parent.get_children():
+		assert(child is Polygon2D, "Child is not polygon2D")
+		children.append(child)
+	return children
 
 
 func get_current_polygon_editing() -> Node2D:

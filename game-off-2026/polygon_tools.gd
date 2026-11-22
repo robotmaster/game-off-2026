@@ -80,11 +80,13 @@ func get_polygon_centroid(polygons: Array[PackedVector2Array]) -> Vector2:
 	var divide_sum := 0.0
 	for polygon in polygons:
 		var indices := Geometry2D.triangulate_polygon(polygon)
-		for index in range(0, indices, 3):
-			var a := polygon[index]
-			var b := polygon[index + 1]
-			var c := polygon[index + 2]
-			
+		for index in range(0, len(indices), 3):
+			var a := polygon[indices[index]]
+			var b := polygon[indices[index + 1]]
+			var c := polygon[indices[index + 2]]
+			var area := 0.5 * absf(a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y))
+			sum += (a+b+c) / 3 * area
+			divide_sum += area
 	
 	if divide_sum == 0:
 		return Vector2()
