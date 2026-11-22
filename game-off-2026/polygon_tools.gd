@@ -63,3 +63,14 @@ func _cut_hole_in_polygon(original_polygon: PackedVector2Array, hole_polygon: Pa
 					current_point = 0
 	return new_polygon_array
 	
+func is_colliding_with_area_currently(space_state: PhysicsDirectSpaceState2D, collision_shape : CollisionShape2D, area: Area2D) -> bool:
+	var parameters := PhysicsShapeQueryParameters2D.new()
+	parameters.shape = collision_shape.shape
+	parameters.transform = collision_shape.global_transform
+	parameters.collide_with_areas = true
+	parameters.collide_with_bodies = false
+	parameters.collision_mask = area.collision_layer
+	for hit in space_state.intersect_shape(parameters):
+		if hit.collider == area:
+			return true
+	return false

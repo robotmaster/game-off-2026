@@ -85,7 +85,6 @@ script = ExtResource("5_qvc4m")
 Room = NodePath("../../..")
 
 [node name="IntersectionArea" type="StaticBody2D" parent="MainPolygons" unique_id=932035965]
-position = Vector2(11, -4)
 
 [node name="CurrentPolygonOutline" type="Node2D" parent="MainPolygons" unique_id=1542420041 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true

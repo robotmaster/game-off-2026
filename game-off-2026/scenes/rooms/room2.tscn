@@ -31,6 +31,9 @@ scale = Vector2(1, 1.0769231)
 color = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(-208, 118.85714, -208, 89.14286, -240, 89.14286, -240, 118.85714)
 
+[node name="IntersectionArea" parent="MainPolygons" parent_id_path=PackedInt32Array(1591896628) index="1" unique_id=932035965]
+position = Vector2(0, 0)
+
 [node name="Exit" parent="." index="4" unique_id=1218272071]
 position = Vector2(48, 64)
 

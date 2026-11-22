@@ -14,17 +14,19 @@ const JUMP_STOP_SPEED_CUT := 1.8
 var _holding_jump_after_jump := false
 
 func _physics_process(delta: float) -> void:
-	
 	if Input.is_action_just_pressed("toggle_play"):
-		if PolygonMoveArea.overlaps_body(self):
+		var space_state := get_world_2d().direct_space_state
+		if PolygonTools.is_colliding_with_area_currently(space_state, %Collision, PolygonMoveArea):
 			Room.toggle_editing()
 	
 	if not Room or Room.is_editing:
-		return 
+		return
+	
 	if test_move(global_transform, Vector2.ZERO):
 		return
 	
 	_handle_win()
+	
 	if not Input.is_action_pressed("up"):
 		_holding_jump_after_jump = false
 		%JumpBoostingTimer.stop()
