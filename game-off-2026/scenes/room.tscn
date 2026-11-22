@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://cjm23hkbawsvx" path="res://shaders/polygons.gdshader" id="3_jn645"]
 [ext_resource type="Shader" uid="uid://ct4ttth4kqu8l" path="res://shaders/polygon_move_area.gdshader" id="3_qtoah"]
 [ext_resource type="Script" uid="uid://crn75i0wmp5it" path="res://scripts/generate_collision_shapes_of_children.gd" id="3_ybpoa"]
-[ext_resource type="Script" uid="uid://dfwyfvy5mmhq0" path="res://scripts/polygons.gd" id="4_jxe34"]
+[ext_resource type="Script" uid="uid://dfwyfvy5mmhq0" path="res://scripts/set_polygon_colors.gd" id="4_jxe34"]
 [ext_resource type="PackedScene" uid="uid://dxg36kacwicgt" path="res://scenes/player.tscn" id="4_qvc4m"]
 [ext_resource type="PackedScene" uid="uid://yprk1w2gy2vs" path="res://scenes/exit.tscn" id="5_jn645"]
 [ext_resource type="Script" uid="uid://ck3epd51kkhqq" path="res://scripts/polygon_parent.gd" id="5_qvc4m"]

@@ -98,6 +98,9 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	
 	return overlap
 
+
+
+
 func get_current_polygon_editing() -> Node2D:
 	if not is_editing:
 		return null

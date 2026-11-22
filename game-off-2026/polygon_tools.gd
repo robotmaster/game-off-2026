@@ -74,3 +74,18 @@ func is_colliding_with_area_currently(space_state: PhysicsDirectSpaceState2D, co
 		if hit.collider == area:
 			return true
 	return false
+
+func get_polygon_centroid(polygons: Array[PackedVector2Array]) -> Vector2:
+	var sum := Vector2()
+	var divide_sum := 0.0
+	for polygon in polygons:
+		var indices := Geometry2D.triangulate_polygon(polygon)
+		for index in range(0, indices, 3):
+			var a := polygon[index]
+			var b := polygon[index + 1]
+			var c := polygon[index + 2]
+			
+	
+	if divide_sum == 0:
+		return Vector2()
+	return sum / divide_sum
