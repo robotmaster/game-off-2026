@@ -10,7 +10,8 @@ class_name PolygonParent
 @export var color : Color
 
 const POLYGON_MOVE_SPEED = 100
-const POLYGON_ROTATION_SPEED = 0.1
+const POLYGON_ROTATION_SPEED = 1.9
+const POLYGON_SCALE_SPEED_MULT = 1.7
 
 var allowed = []
 
@@ -30,8 +31,15 @@ func _physics_process(delta: float) -> void:
 	_center_polygon_on_centroid()
 
 func _move_polygon(delta: float) -> void:
-	global_rotation += POLYGON_ROTATION_SPEED * Input.get_axis("left", "right")
-	#global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED
+	if Room.polygon_transform_editing == Room.PolygonTransforms.Translate and moving_allowed:
+		global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED
+	
+	elif Room.polygon_transform_editing == Room.PolygonTransforms.Rotate and rotating_allowed:
+		global_rotation += POLYGON_ROTATION_SPEED * Input.get_axis("left", "right") * delta
+	
+	elif Room.polygon_transform_editing == Room.PolygonTransforms.Scale and scaling_allowed:
+		scale.x *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("left", "right")
+		scale.y *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("up", "down")
 
 
 func _center_polygon_on_centroid() -> void:
