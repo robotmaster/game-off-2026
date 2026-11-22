@@ -1,8 +1,6 @@
 extends Node2D
 class_name RoomRoot
 
-@export var next_room : PackedScene
-
 @export_group("Don't Touch")
 @export var color_1_parent : Node2D
 @export var color_2_parent : Node2D
@@ -125,4 +123,4 @@ func reset_room() -> void:
 	get_tree().reload_current_scene()
 
 func go_to_next_room() -> void:
-	get_tree().change_scene_to_packed(next_room)
+	get_tree().change_scene_to_file(LevelManager.next_room())

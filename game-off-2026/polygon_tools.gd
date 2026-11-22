@@ -89,7 +89,7 @@ func get_polygon_centroid(polygons: Array[PackedVector2Array]) -> Vector2:
 			divide_sum += area
 	
 	if divide_sum == 0:
-		return Vector2()
+		return Vector2(99999999999, 99999999999)
 	return sum / divide_sum
 
 func translate_polygon(polygon: PackedVector2Array, move: Vector2) -> PackedVector2Array:

@@ -18,10 +18,7 @@ use_parent_material = true
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(-160, 48, -112, 80, -208, 144, -208, 48)
 
-[node name="Blue" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="1" unique_id=1709256072]
-scaling_allowed = true
-
-[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Blue" index="0" unique_id=1219641244]
+[node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Blue" parent_id_path=PackedInt32Array(1709256072) index="0" unique_id=1219641244]
 use_parent_material = true
 color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(-160, 48, 64, 112, -64, 128, -192, 80)

@@ -35,7 +35,8 @@ func _move_polygon(delta: float) -> void:
 		global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED
 	
 	elif Room.polygon_transform_editing == Room.PolygonTransforms.Rotate and rotating_allowed:
-		global_rotation += POLYGON_ROTATION_SPEED * Input.get_axis("left", "right") * delta
+		var axis : float = sign(Input.get_axis("left", "right") + Input.get_axis("down", "up"))
+		global_rotation += POLYGON_ROTATION_SPEED * axis * delta
 	
 	elif Room.polygon_transform_editing == Room.PolygonTransforms.Scale and scaling_allowed:
 		scale.x *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("left", "right")
