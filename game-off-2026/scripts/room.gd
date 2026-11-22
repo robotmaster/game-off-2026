@@ -1,6 +1,8 @@
 extends Node2D
 class_name RoomRoot
 
+const INTERSECTION_AREA = preload("res://scenes/polygon_intersection_area.tscn")
+
 @export_group("Don't Touch")
 @export var color_1_parent : Node2D
 @export var color_2_parent : Node2D
@@ -66,15 +68,17 @@ func _calculate_polygon_collisions() -> void:
 	for child in children:
 		child.queue_free()
 	for polygon_shape in overlap:
-		var new_polygon_2d := Polygon2D.new()
-		new_polygon_2d.polygon = polygon_shape
-		intersection_static_body.add_child(new_polygon_2d)
+		var new_intersection_area = INTERSECTION_AREA.instantiate()
+		new_intersection_area.polygon = polygon_shape
+		intersection_static_body.add_child(new_intersection_area)
 		
 		var new_collision := CollisionPolygon2D.new()
 		new_collision.polygon = polygon_shape
 		intersection_static_body.add_child(new_collision)
 		
 	#intersection_polygon.polygon = intersection_polygon.global_transform.affine_inverse() * overlap[0]
+
+
 
 func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	var overlap : Array[PackedVector2Array] = []

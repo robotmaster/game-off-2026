@@ -29,7 +29,7 @@ rotating_allowed = true
 
 [node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Green" index="0" unique_id=1848403671]
 use_parent_material = true
-position = Vector2(-16, -80)
+position = Vector2(64, -16)
 color = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(-128, 80, -208, 48, -240, 96, -208, 96)
 

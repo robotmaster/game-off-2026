@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dq1srfxo8o7ny"]
+
+[ext_resource type="Script" uid="uid://cx4wblqfd3c4i" path="res://scripts/polygon_intersection_area.gd" id="1_hp1qd"]
+
+[node name="PolygonIntersectionArea" type="Polygon2D" unique_id=488270413]
+script = ExtResource("1_hp1qd")

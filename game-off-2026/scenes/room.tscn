@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://yprk1w2gy2vs" path="res://scenes/exit.tscn" id="5_jn645"]
 [ext_resource type="Script" uid="uid://ck3epd51kkhqq" path="res://scripts/polygon_parent.gd" id="5_qvc4m"]
 [ext_resource type="Script" uid="uid://qsfnwordlsme" path="res://scripts/current_polygon_outline.gd" id="6_7dqbv"]
+[ext_resource type="Script" uid="uid://bnsxvblbr143l" path="res://scripts/polygon_canvas.gd" id="8_dynfe"]
+[ext_resource type="Shader" uid="uid://djb465hsx6mjh" path="res://shaders/polygon_outline.gdshader" id="9_3j2fx"]
 [ext_resource type="Script" uid="uid://b4c2tt5ppfj4" path="res://scripts/polygon_centroid_display.gd" id="9_eom3m"]
 [ext_resource type="Texture2D" uid="uid://ibq1rp8ensw7" path="res://sprites/polygon_transforms.png" id="10_tk5fv"]
 [ext_resource type="Script" uid="uid://blstfn2xk4cca" path="res://scripts/polygon_info_ui.gd" id="10_w68ji"]
@@ -22,8 +24,8 @@ shader = ExtResource("3_qtoah")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
-shader_parameter/ALPHA = 0.8
-shader_parameter/CHANNEL_COLORS = Color(0.9137255, 0.8039216, 1, 1)
+shader_parameter/alpha = 0.9
+shader_parameter/channel_colors = Color(0.94509804, 0.81960785, 1, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jn645"]
 blend_mode = 1
@@ -33,6 +35,9 @@ blend_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7dqbv"]
 blend_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_23wr2"]
+shader = ExtResource("9_3j2fx")
 
 [sub_resource type="GDScript" id="GDScript_277jj"]
 script/source = "extends Camera2D
@@ -76,8 +81,10 @@ material = SubResource("ShaderMaterial_qtoah")
 process_physics_priority = 1000
 script = ExtResource("4_jxe34")
 
-[node name="PolygonCanvas" type="CanvasGroup" parent="MainPolygons" unique_id=1378756590]
+[node name="PolygonCanvas" type="CanvasGroup" parent="MainPolygons" unique_id=1378756590 node_paths=PackedStringArray("Room")]
 material = SubResource("ShaderMaterial_277jj")
+script = ExtResource("8_dynfe")
+Room = NodePath("../..")
 
 [node name="Red" type="Node2D" parent="MainPolygons/PolygonCanvas" unique_id=349891011 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
@@ -106,6 +113,7 @@ color = Color(0, 1, 0, 1)
 
 [node name="CurrentPolygonOutline" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=1542420041 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_23wr2")
 script = ExtResource("6_7dqbv")
 Room = NodePath("../../..")
 

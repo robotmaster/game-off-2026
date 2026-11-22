@@ -2,8 +2,8 @@ extends Node2D
 
 @export var Room : RoomRoot
 
-const POLYGON_OUTLINE_COLOR_MULT = Color(0.3, 0.3, 0.3, 0.4)
-const POLYGON_OUTLINE_COLOR_ADD = Color(0.7, 0.7, 0.7, 0)
+const POLYGON_OUTLINE_COLOR_MULT = Color(0.2, 0.2, 0.2, 0.4)
+const POLYGON_OUTLINE_COLOR_ADD = Color(0.8, 0.8, 0.8, 0)
 const POLYGON_OUTLINE_WIDTH = 2.0
 
 func _process(_delta: float) -> void:
