@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://ck3epd51kkhqq" path="res://scripts/polygon_parent.gd" id="5_qvc4m"]
 [ext_resource type="Script" uid="uid://qsfnwordlsme" path="res://scripts/current_polygon_outline.gd" id="6_7dqbv"]
 [ext_resource type="Script" uid="uid://b4c2tt5ppfj4" path="res://scripts/polygon_centroid_display.gd" id="9_eom3m"]
+[ext_resource type="Texture2D" uid="uid://ibq1rp8ensw7" path="res://sprites/polygon_transforms.png" id="10_tk5fv"]
+[ext_resource type="Script" uid="uid://blstfn2xk4cca" path="res://scripts/polygon_info_ui.gd" id="10_w68ji"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ybpoa"]
 
@@ -19,7 +21,7 @@ shader = ExtResource("3_qtoah")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
-shader_parameter/ALPHA = 0.5
+shader_parameter/ALPHA = 0.8
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jn645"]
 blend_mode = 1
@@ -72,18 +74,21 @@ unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_jn645")
 script = ExtResource("5_qvc4m")
 Room = NodePath("../../..")
+color = Color(1, 0, 0, 1)
 
 [node name="Blue" type="Node2D" parent="MainPolygons/PolygonCanvas" unique_id=1709256072 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_qvc4m")
 script = ExtResource("5_qvc4m")
 Room = NodePath("../../..")
+color = Color(0, 0, 1, 1)
 
 [node name="Green" type="Node2D" parent="MainPolygons/PolygonCanvas" unique_id=737133991 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_7dqbv")
 script = ExtResource("5_qvc4m")
 Room = NodePath("../../..")
+color = Color(0, 1, 0, 1)
 
 [node name="PolygonDisplays" type="Node2D" parent="MainPolygons" unique_id=798672328]
 
@@ -97,6 +102,48 @@ Room = NodePath("../../..")
 [node name="PolygonCentroidDisplay" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=596787214 node_paths=PackedStringArray("Room")]
 script = ExtResource("9_eom3m")
 Room = NodePath("../../..")
+
+[node name="PolygonInfoUI" type="Node2D" parent="." unique_id=875030579 node_paths=PackedStringArray("Room")]
+script = ExtResource("10_w68ji")
+Room = NodePath("..")
+
+[node name="ColorBg" type="Sprite2D" parent="PolygonInfoUI" unique_id=460498318]
+position = Vector2(-285, -157)
+texture = ExtResource("10_tk5fv")
+hframes = 4
+
+[node name="ColorFill" type="ColorRect" parent="PolygonInfoUI" unique_id=848166506]
+offset_left = -296.0
+offset_top = -168.0
+offset_right = -274.0
+offset_bottom = -146.0
+color = Color(1, 0, 0, 1)
+
+[node name="Translate" type="Sprite2D" parent="PolygonInfoUI" unique_id=1717125355]
+position = Vector2(-245, -157)
+texture = ExtResource("10_tk5fv")
+hframes = 4
+frame = 1
+
+[node name="Rotate" type="Sprite2D" parent="PolygonInfoUI" unique_id=449286113]
+position = Vector2(-205, -157)
+texture = ExtResource("10_tk5fv")
+hframes = 4
+frame = 2
+
+[node name="Scale" type="Sprite2D" parent="PolygonInfoUI" unique_id=316647045]
+position = Vector2(-165, -157)
+texture = ExtResource("10_tk5fv")
+hframes = 4
+frame = 3
+
+[node name="WhiteHighlight" type="ColorRect" parent="PolygonInfoUI" unique_id=1859770529]
+offset_left = -300.0
+offset_top = -172.0
+offset_right = -270.0
+offset_bottom = -142.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(0.4745098, 0.75686276, 0.40784314, 0.49019608)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=978009330]
 zoom = Vector2(3, 3)

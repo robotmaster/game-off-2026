@@ -20,5 +20,5 @@ func _draw() -> void:
 		var left := centroid_global + Vector2(-CENTER_LINE_LENGTH, 0)
 		var right := centroid_global + Vector2(CENTER_LINE_LENGTH, 0)
 		
-		draw_line(up, down, polygon_parent.get_child(0).color * CENTER_LINE_COLOR_MULT, CENTER_LINE_WIDTH)
-		draw_line(left, right, polygon_parent.get_child(0).color * CENTER_LINE_COLOR_MULT, CENTER_LINE_WIDTH)
+		draw_line(up, down, polygon_parent.color * CENTER_LINE_COLOR_MULT, CENTER_LINE_WIDTH)
+		draw_line(left, right, polygon_parent.color * CENTER_LINE_COLOR_MULT, CENTER_LINE_WIDTH)

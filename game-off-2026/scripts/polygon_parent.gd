@@ -6,8 +6,21 @@ class_name PolygonParent
 @export var rotating_allowed := false
 @export var scaling_allowed := false
 
+@export_group("Dont Touch")
+@export var color : Color
+
 const POLYGON_MOVE_SPEED = 100
 const POLYGON_ROTATION_SPEED = 0.1
+
+var allowed = []
+
+func _ready() -> void:
+	if moving_allowed:
+		allowed.append(Room.PolygonTransforms.Translate)
+	if rotating_allowed:
+		allowed.append(Room.PolygonTransforms.Rotate)
+	if scaling_allowed:
+		allowed.append(Room.PolygonTransforms.Scale)
 
 func _physics_process(delta: float) -> void:
 	_center_polygon_on_centroid()

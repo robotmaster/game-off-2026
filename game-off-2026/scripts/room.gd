@@ -10,23 +10,55 @@ class_name RoomRoot
 
 @export var intersection_static_body : StaticBody2D
 
+enum PolygonTransforms {
+	Translate,
+	Rotate,
+	Scale
+}
+	
 var polygon_editing := 1
+var polygon_transform_editing : PolygonTransforms = PolygonTransforms.Translate
+
 var is_editing := false
 
 func _ready() -> void:
 	intersection_static_body.global_transform = Transform2D()
 	intersection_static_body.global_transform = Transform2D()
+	is_editing = true
+	_set_transform_editing_to_first_valid()
+	is_editing = false
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("switch_edit"):
+	if Input.is_action_just_pressed("switch_edit") and is_editing:
 		polygon_editing += 1
 		if polygon_editing > 3:
 			polygon_editing = 1
+		_set_transform_editing_to_first_valid()
+		
+
+	if Input.is_action_just_pressed("switch_property"):
+		var editing := get_current_polygon_editing()
+		var next_state := polygon_transform_editing
+		for i in range(3):
+			next_state = (next_state + 1) % PolygonTransforms.size()
+			if next_state in editing.allowed:
+				polygon_transform_editing = next_state
+				break
+	
 	if Input.is_action_just_pressed("reset"):
 		reset_room()
 	
 	_calculate_polygon_collisions()
+
+func _set_transform_editing_to_first_valid() -> void:
+	var editing := get_current_polygon_editing()
+	polygon_transform_editing = PolygonTransforms.Translate
+	for poly_transform in PolygonTransforms.values():
+		
+		if poly_transform in editing.allowed:
+			polygon_transform_editing = poly_transform
+			return
 
 func _calculate_polygon_collisions() -> void:
 	
@@ -65,7 +97,6 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	return overlap
 
 
-
 func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:
 	var children := []
 	
@@ -75,7 +106,7 @@ func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:
 	return children
 
 
-func get_current_polygon_editing() -> Node2D:
+func get_current_polygon_editing() -> PolygonParent:
 	if not is_editing:
 		return null
 	match polygon_editing:
