@@ -14,22 +14,6 @@ var polygon_editing := 1
 var is_editing := false
 
 func _ready() -> void:
-	
-	for polygon_2d : Polygon2D in get_children_polygons(color_1_parent):
-		var polygon_global := polygon_2d.global_transform * polygon_2d.polygon
-		polygon_2d.polygon = polygon_global
-		polygon_2d.global_transform = Transform2D()
-	
-	for polygon_2d : Polygon2D in get_children_polygons(color_2_parent):
-		var polygon_global := polygon_2d.global_transform * polygon_2d.polygon
-		polygon_2d.polygon = polygon_global
-		polygon_2d.global_transform = Transform2D()
-		
-	for polygon_2d : Polygon2D in get_children_polygons(color_3_parent):
-		var polygon_global := polygon_2d.global_transform * polygon_2d.polygon
-		polygon_2d.polygon = polygon_global
-		polygon_2d.global_transform = Transform2D()
-	
 	intersection_static_body.global_transform = Transform2D()
 	intersection_static_body.global_transform = Transform2D()
 
