@@ -1,14 +1,10 @@
 extends Node2D
 class_name RoomRoot
 
-const INTERSECTION_AREA = preload("res://scenes/polygon_intersection_area.tscn")
-
 @export_group("Don't Touch")
 @export var color_1_parent : Node2D
 @export var color_2_parent : Node2D
 @export var color_3_parent : Node2D
-
-@export var intersection_static_body : StaticBody2D
 
 enum PolygonTransforms {
 	Translate,
@@ -22,8 +18,6 @@ var polygon_transform_editing : PolygonTransforms = PolygonTransforms.Translate
 var is_editing := false
 
 func _ready() -> void:
-	intersection_static_body.global_transform = Transform2D()
-	intersection_static_body.global_transform = Transform2D()
 	is_editing = true
 	_set_transform_editing_to_first_valid()
 	is_editing = false
@@ -49,7 +43,7 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):
 		reset_room()
 	
-	_calculate_polygon_collisions()
+	%IntersectionArea.do_polygon_collisions()
 
 func _set_transform_editing_to_first_valid() -> void:
 	var editing := get_current_polygon_editing()
@@ -60,43 +54,7 @@ func _set_transform_editing_to_first_valid() -> void:
 			polygon_transform_editing = poly_transform
 			return
 
-func _calculate_polygon_collisions() -> void:
-	
-	var overlap := _get_overlap_in_polygons()
-	
-	var children := intersection_static_body.get_children()
-	for child in children:
-		child.queue_free()
-	for polygon_shape in overlap:
-		var new_intersection_area = INTERSECTION_AREA.instantiate()
-		new_intersection_area.polygon = polygon_shape
-		intersection_static_body.add_child(new_intersection_area)
-		
-		var new_collision := CollisionPolygon2D.new()
-		new_collision.polygon = polygon_shape
-		intersection_static_body.add_child(new_collision)
-		
-	#intersection_polygon.polygon = intersection_polygon.global_transform.affine_inverse() * overlap[0]
 
-
-
-func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
-	var overlap : Array[PackedVector2Array] = []
-	
-	for polygon_1 in get_children_polygons(color_1_parent):
-		for polygon_2 in get_children_polygons(color_2_parent):
-			for polygon_3 in get_children_polygons(color_3_parent):
-				var global_polygon_1 := polygon_1.global_transform * polygon_1.polygon
-				var global_polygon_2 := polygon_2.global_transform * polygon_2.polygon
-				var global_polygon_3 := polygon_3.global_transform * polygon_3.polygon
-				
-				var first_overlap := Geometry2D.intersect_polygons(global_polygon_1, global_polygon_2)
-				for overlap_polygon in first_overlap:
-					var all_overlap := Geometry2D.intersect_polygons(overlap_polygon, global_polygon_3)
-					for overlap_region in all_overlap:
-						overlap.append(overlap_region)
-	
-	return overlap
 
 
 func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:

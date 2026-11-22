@@ -15,6 +15,7 @@
 [ext_resource type="Shader" uid="uid://djb465hsx6mjh" path="res://shaders/polygon_outline.gdshader" id="9_3j2fx"]
 [ext_resource type="Script" uid="uid://b4c2tt5ppfj4" path="res://scripts/polygon_centroid_display.gd" id="9_eom3m"]
 [ext_resource type="Texture2D" uid="uid://ibq1rp8ensw7" path="res://sprites/polygon_transforms.png" id="10_tk5fv"]
+[ext_resource type="Script" uid="uid://cj0q4ogykxlvw" path="res://scripts/intersection_area.gd" id="10_vfrn5"]
 [ext_resource type="Script" uid="uid://blstfn2xk4cca" path="res://scripts/polygon_info_ui.gd" id="10_w68ji"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ybpoa"]
@@ -57,13 +58,12 @@ func _ready() -> void:
 	zoom = Vector2(1, 1)
 "
 
-[node name="Room" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1_parent", "color_2_parent", "color_3_parent", "intersection_static_body")]
+[node name="Room" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1_parent", "color_2_parent", "color_3_parent")]
 process_physics_priority = 1000
 script = ExtResource("1_14vil")
 color_1_parent = NodePath("MainPolygons/PolygonCanvas/Red")
 color_2_parent = NodePath("MainPolygons/PolygonCanvas/Blue")
 color_3_parent = NodePath("MainPolygons/PolygonCanvas/Green")
-intersection_static_body = NodePath("MainPolygons/PolygonDisplays/IntersectionArea")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1475472593]
 offset_left = -320.0
@@ -119,7 +119,16 @@ color = Color(0, 1, 0, 1)
 
 [node name="PolygonDisplays" type="Node2D" parent="MainPolygons" unique_id=798672328]
 
-[node name="IntersectionArea" type="StaticBody2D" parent="MainPolygons/PolygonDisplays" unique_id=932035965]
+[node name="IntersectionArea" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=529638720 node_paths=PackedStringArray("Room")]
+unique_name_in_owner = true
+script = ExtResource("10_vfrn5")
+Room = NodePath("../../..")
+
+[node name="CollisionsAndVisuals" type="StaticBody2D" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1418591758]
+
+[node name="SubViewport" type="SubViewport" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1369055823]
+
+[node name="Light" type="PointLight2D" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1513066304]
 
 [node name="CurrentPolygonOutline" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=1542420041 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true

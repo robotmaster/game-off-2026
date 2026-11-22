@@ -3,21 +3,14 @@ extends Polygon2D
 const POLYGON_OUTLINE_WIDTH = 2
 const OUTLINE_COLOR = Color(0.3, 0.3, 0.3)
 
-func _ready() -> void:
-	%SubViewport.size = get_viewport().get_visible_rect().size
-	%SubViewport/Poly.position = get_viewport().get_visible_rect().size / 2
 	
 func _process(_delta: float) -> void:
-
-	%SubViewport/Poly.polygon = global_transform * polygon
+	var viewport_size := get_viewport().get_visible_rect().size
+	var image := Image.create_empty(viewport_size.x, viewport_size.y, false, Image.FORMAT_L8)
 	
+	image.fill_rect(Rect2(0, 0, 100, 100), Color.WHITE)
 	
-	var viewport_texture : ViewportTexture = %SubViewport.get_texture()
-	%Light.texture = viewport_texture.get_image()
-	
-	%Light.offset = -%Light.global_position
-	
-	print(%Light.offset)
+	%Light.texture = ImageTexture.create_from_image(image)
 	
 	queue_redraw()
 

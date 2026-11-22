@@ -1,19 +1,4 @@
 [gd_scene format=3 uid="uid://dq1srfxo8o7ny"]
 
-[ext_resource type="Script" uid="uid://cx4wblqfd3c4i" path="res://scripts/polygon_intersection_area.gd" id="1_hp1qd"]
-
 [node name="PolygonIntersectionArea" type="Polygon2D" unique_id=488270413]
 color = Color(0, 0, 0, 1)
-script = ExtResource("1_hp1qd")
-
-[node name="SubViewport" type="SubViewport" parent="." unique_id=896547864]
-unique_name_in_owner = true
-transparent_bg = true
-render_target_update_mode = 4
-
-[node name="Poly" type="Polygon2D" parent="SubViewport" unique_id=691815405]
-polygon = PackedVector2Array(0, 0, 100, 0, 0, 100)
-
-[node name="Light" type="PointLight2D" parent="." unique_id=1408397687]
-unique_name_in_owner = true
-texture_scale = 50.0
