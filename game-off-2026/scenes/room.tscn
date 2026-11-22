@@ -126,11 +126,13 @@ script = ExtResource("10_w68ji")
 Room = NodePath("..")
 
 [node name="ColorBg" type="Sprite2D" parent="PolygonInfoUI" unique_id=460498318]
+use_parent_material = true
 position = Vector2(-285, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 
 [node name="ColorFill" type="ColorRect" parent="PolygonInfoUI" unique_id=848166506]
+use_parent_material = true
 offset_left = -296.0
 offset_top = -168.0
 offset_right = -274.0
@@ -138,24 +140,28 @@ offset_bottom = -146.0
 color = Color(1, 0, 0, 1)
 
 [node name="Translate" type="Sprite2D" parent="PolygonInfoUI" unique_id=1717125355]
+use_parent_material = true
 position = Vector2(-245, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 frame = 1
 
 [node name="Rotate" type="Sprite2D" parent="PolygonInfoUI" unique_id=449286113]
+use_parent_material = true
 position = Vector2(-205, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 frame = 2
 
 [node name="Scale" type="Sprite2D" parent="PolygonInfoUI" unique_id=316647045]
+use_parent_material = true
 position = Vector2(-165, -157)
 texture = ExtResource("10_tk5fv")
 hframes = 4
 frame = 3
 
 [node name="WhiteHighlight" type="ColorRect" parent="PolygonInfoUI" unique_id=1859770529]
+use_parent_material = true
 offset_left = -300.0
 offset_top = -172.0
 offset_right = -270.0

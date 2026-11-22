@@ -4,7 +4,10 @@ extends Node2D
 
 const CENTER_LINE_LENGTH = 5
 const CENTER_LINE_WIDTH = 2
-const CENTER_LINE_COLOR_MULT = Color(0.5, 0.5, 0.5, 0.4)
+const CENTER_LINE_COLOR_MULT = Color(0.3, 0.3, 0.3, 0.7)
+
+const CENTER_LINE_COLOR_ADD_EDIT = Color(0.7, 0.7, 0.7, 0)
+const CENTER_LINE_COLOR_ADD_PLAY = Color(0.4, 0.4, 0.4, 0)
 
 func _process(delta: float) -> void:
 	queue_redraw()
@@ -20,5 +23,9 @@ func _draw() -> void:
 		var left := centroid_global + Vector2(-CENTER_LINE_LENGTH, 0)
 		var right := centroid_global + Vector2(CENTER_LINE_LENGTH, 0)
 		
-		draw_line(up, down, polygon_parent.color * CENTER_LINE_COLOR_MULT, CENTER_LINE_WIDTH)
-		draw_line(left, right, polygon_parent.color * CENTER_LINE_COLOR_MULT, CENTER_LINE_WIDTH)
+		var draw_color := polygon_parent.color * CENTER_LINE_COLOR_MULT + CENTER_LINE_COLOR_ADD_PLAY
+		if Room.is_editing:
+			draw_color = polygon_parent.color * CENTER_LINE_COLOR_MULT + CENTER_LINE_COLOR_ADD_EDIT
+		
+		draw_line(up, down, draw_color, CENTER_LINE_WIDTH)
+		draw_line(left, right, draw_color, CENTER_LINE_WIDTH)
