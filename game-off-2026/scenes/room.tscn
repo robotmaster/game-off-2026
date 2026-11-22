@@ -23,6 +23,7 @@ shader = ExtResource("3_qtoah")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
 shader_parameter/ALPHA = 0.8
+shader_parameter/CHANNEL_COLORS = Color(0.9137255, 0.8039216, 1, 1)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jn645"]
 blend_mode = 1

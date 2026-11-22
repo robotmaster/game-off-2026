@@ -4,7 +4,7 @@ extends Node2D
 
 const CENTER_LINE_LENGTH = 5
 const CENTER_LINE_WIDTH = 2
-const CENTER_LINE_COLOR_MULT = Color(0.5, 0.5, 0.5, 0.8)
+const CENTER_LINE_COLOR_MULT = Color(0.5, 0.5, 0.5, 0.4)
 
 func _process(delta: float) -> void:
 	queue_redraw()

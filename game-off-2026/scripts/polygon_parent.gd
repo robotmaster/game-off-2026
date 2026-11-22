@@ -9,7 +9,7 @@ class_name PolygonParent
 @export_group("Dont Touch")
 @export var color : Color
 
-const POLYGON_MOVE_SPEED = 100
+const POLYGON_MOVE_SPEED = 170
 const POLYGON_ROTATION_SPEED = 1.9
 const POLYGON_SCALE_SPEED_MULT = 1.7
 
