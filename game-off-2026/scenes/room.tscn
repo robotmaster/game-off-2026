@@ -127,8 +127,10 @@ Room = NodePath("../../..")
 [node name="CollisionsAndVisuals" type="StaticBody2D" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1418591758]
 
 [node name="SubViewport" type="SubViewport" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1369055823]
+render_target_update_mode = 4
 
 [node name="Light" type="PointLight2D" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1513066304]
+energy = 0.9
 
 [node name="CurrentPolygonOutline" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=1542420041 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
@@ -203,4 +205,4 @@ Exit = NodePath("../Exit")
 PolygonMoveArea = NodePath("../SpecialElements/PolygonMoveArea")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1055200988]
-color = Color(0.8089983, 0.8089983, 0.8089982, 1)
+color = Color(0.8776157, 0.8776158, 0.87761563, 1)
