@@ -33,7 +33,7 @@ rotating_allowed = true
 use_parent_material = true
 position = Vector2(64, -16)
 color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(-129, 47, -306, 47, -240, 96, -208, 96)
+polygon = PackedVector2Array(-129, 47, -210, 28, -306, 47, -240, 96, -208, 96)
 
 [node name="Exit" parent="." index="6" unique_id=1218272071]
 position = Vector2(224, -80)

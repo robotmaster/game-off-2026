@@ -13,6 +13,8 @@ const POLYGON_MOVE_SPEED = 170
 const POLYGON_ROTATION_SPEED = 1.9
 const POLYGON_SCALE_SPEED_MULT = 1.7
 
+const SLOW_MOVE_MULT = 0.25
+
 var allowed = []
 
 func _ready() -> void:
@@ -32,15 +34,26 @@ func _physics_process(delta: float) -> void:
 
 func _move_polygon(delta: float) -> void:
 	if Room.polygon_transform_editing == Room.PolygonTransforms.Translate and moving_allowed:
-		global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED
+		if Input.is_action_pressed("move_slow"):
+			global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED * SLOW_MOVE_MULT
+		else:
+			global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED
 	
 	elif Room.polygon_transform_editing == Room.PolygonTransforms.Rotate and rotating_allowed:
 		var axis : float = sign(Input.get_axis("left", "right") + Input.get_axis("down", "up"))
-		global_rotation += POLYGON_ROTATION_SPEED * axis * delta
+		if Input.is_action_pressed("move_slow"):
+		
+			global_rotation += POLYGON_ROTATION_SPEED * axis * delta * SLOW_MOVE_MULT
+		else:
+			global_rotation += POLYGON_ROTATION_SPEED * axis * delta
 	
 	elif Room.polygon_transform_editing == Room.PolygonTransforms.Scale and scaling_allowed:
-		scale.x *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("left", "right")
-		scale.y *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("up", "down")
+		if Input.is_action_pressed("move_slow"):
+			scale.x *= pow(POLYGON_SCALE_SPEED_MULT, delta * SLOW_MOVE_MULT) ** Input.get_axis("left", "right")
+			scale.y *= pow(POLYGON_SCALE_SPEED_MULT, delta * SLOW_MOVE_MULT) ** Input.get_axis("up", "down")
+		else:
+			scale.x *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("left", "right")
+			scale.y *= pow(POLYGON_SCALE_SPEED_MULT, delta) ** Input.get_axis("up", "down")
 
 
 func _center_polygon_on_centroid() -> void:

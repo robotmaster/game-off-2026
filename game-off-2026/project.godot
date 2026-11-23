@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 PolygonTools="*uid://dp4m3akdjd0uf"
 LevelManager="*uid://bq00y2qtara5r"
+VisualTools="*uid://d16latviag3lq"
 
 [debug]
 
