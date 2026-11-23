@@ -18,6 +18,7 @@ var polygon_transform_editing : PolygonTransforms = PolygonTransforms.Translate
 var is_editing := false
 
 func _ready() -> void:
+	ProjectSettings.set_setting("rendering/viewport/hdr_2d", true)
 	is_editing = true
 	_set_transform_editing_to_first_valid()
 	is_editing = false

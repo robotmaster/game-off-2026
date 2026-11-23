@@ -2,6 +2,8 @@ extends Node2D
 
 @export var Room : RoomRoot
 
+const INTERSECTION_POLYGON_COLOR = 5
+
 const LIGHT_FADE_DIST = 20.0
 const LIGHT_FADE_MULT = 0.8
 const LIGHT_POLYGON_SAMPLE_INTERVAL = 0.25
@@ -39,6 +41,8 @@ func do_polygon_collisions() -> void:
 	for polygon_shape in overlap:
 		var new_intersection_area := Polygon2D.new()
 		new_intersection_area.polygon = polygon_shape
+		new_intersection_area.color = Color(INTERSECTION_POLYGON_COLOR, INTERSECTION_POLYGON_COLOR, INTERSECTION_POLYGON_COLOR, 1)
+		
 		$CollisionsAndVisuals.add_child(new_intersection_area)
 		
 		var new_collision := CollisionPolygon2D.new()

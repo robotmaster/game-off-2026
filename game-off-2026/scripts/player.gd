@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	
 	_handle_win()
 	
-	if not Input.is_action_pressed("up"):
+	if not Input.is_action_pressed("up") or is_on_ceiling():
 		_holding_jump_after_jump = false
 		%JumpBoostingTimer.stop()
 	
