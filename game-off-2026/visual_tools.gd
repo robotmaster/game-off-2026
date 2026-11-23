@@ -81,7 +81,6 @@ func update_polygon_light(light: PointLight2D, polygons: Array[PackedVector2Arra
 	while len(polygon_edges) < texture_width * height:
 		polygon_edges.append(Vector2(9999999, 9999999))
 		polygon_edges.append(Vector2(9999999, 9999999))
-	
 	var new_image := Image.create_from_data(
 		texture_width, height, false, Image.FORMAT_RGF, polygon_edges.to_byte_array()
 	)

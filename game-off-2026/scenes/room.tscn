@@ -97,6 +97,9 @@ script = ExtResource("3_ybpoa")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_qtoah")
 
+[node name="Light" type="PointLight2D" parent="SpecialElements/PolygonMoveArea" unique_id=806643925]
+energy = 0.4
+
 [node name="MainPolygons" type="Node2D" parent="." unique_id=1591896628]
 process_physics_priority = 1000
 script = ExtResource("4_jxe34")

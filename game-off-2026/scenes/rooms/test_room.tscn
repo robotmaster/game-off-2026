@@ -23,7 +23,7 @@ polygon = PackedVector2Array(8, 31, -42, 120, -227, 103, -243, 28)
 use_parent_material = true
 position = Vector2(-29, 1)
 color = Color(0, 0, 1, 1)
-polygon = PackedVector2Array(-98, 76, -64, 128, -192, 80, -150, 81, -133, 47)
+polygon = PackedVector2Array(-67, 76, -64, 128, -192, 80, -158, 44, -160, 87, -153, 45, -150, 81, -144, 44, -137, 86, -132, 40, -122, 80, -119, 39, -104, 73, -94, 47)
 
 [node name="Green" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="2" unique_id=737133991]
 moving_allowed = true
@@ -33,10 +33,16 @@ rotating_allowed = true
 use_parent_material = true
 position = Vector2(64, -16)
 color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(-129, 47, -210, 28, -223, 29, -221, 90)
+polygon = PackedVector2Array(-129, 47, -210, 28, -295, 48, -221, 90)
+
+[node name="Light" parent="MainPolygons/PolygonDisplays/IntersectionArea" parent_id_path=PackedInt32Array(529638720) index="1" unique_id=1513066304]
+energy = 0.4
 
 [node name="Exit" parent="." index="6" unique_id=1218272071]
 position = Vector2(224, -80)
 
 [node name="Player" parent="." index="7" unique_id=1936053006]
 position = Vector2(-256, 128)
+
+[node name="CanvasModulate" parent="." index="8" unique_id=1055200988]
+color = Color(0.7750634, 0.7750634, 0.7750634, 1)
