@@ -16,9 +16,37 @@ void fragment() {
 	for (int point = 0; point < total_size; point += 2) {
 		vec2 point_1 = get_point_number(point);
 		vec2 point_2 = get_point_number(point + 1);
+		
+		vec2 screen_point = FRAGCOORD.xy;
+		
+		vec2 point_1_to_2 = point_2 - point_1;
+		
+		if (length(point_1_to_2) == 0.0) {
+			continue;
+		}
+		
+		point_1_to_2 = normalize(point_1_to_2);
+		float screen_dot = dot(screen_point, point_1_to_2);
+		float dist;
+		if (screen_dot < dot(point_1, point_1_to_2)) {
+			dist = length(point_1 - screen_point);
+		}
+		else if (screen_dot < dot(point_2, point_1_to_2)) {
+			vec2 perpendicular = vec2(-point_1_to_2.y, point_1_to_2.x);
+			dist = dot(screen_point, perpendicular) - dot(point_1, perpendicular);
+			dist = abs(dist);
+		}
+		else {
+			dist = length(point_2 - screen_point);
+		}
+		
+		if (dist < min_distance) {
+			min_distance = dist;
+		}
+		
 	}
 	
 	float brightness = pow(light_fade_mult, min_distance);
-	COLOR = vec4(0, 0, 0, 1);
+	COLOR = vec4(brightness, brightness, brightness, 1);
 	//COLOR = vec4(brightness, brightness, brightness, 1.0);
 }

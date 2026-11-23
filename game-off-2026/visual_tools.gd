@@ -72,21 +72,21 @@ func update_polygon_light(light: PointLight2D, polygons: Array[PackedVector2Arra
 			var next_index := point_index + 1
 			if next_index >= len(polygon):
 				next_index = 0
-			polygon_edges.append(polygon[point_index])
-			polygon_edges.append(polygon[next_index])
+			polygon_edges.append(polygon[point_index] + get_viewport().get_visible_rect().size / 2)
+			polygon_edges.append(polygon[next_index] + get_viewport().get_visible_rect().size / 2)
 	
-	var texture_width := 64
+	var texture_width := 32 * 2
 	var height : int = (len(polygon_edges) / texture_width) + 1
 	
 	while len(polygon_edges) < texture_width * height:
-		polygon_edges.append(Vector2(99999, 99999))
-		polygon_edges.append(Vector2(99999, 99999))
+		polygon_edges.append(Vector2(9999999, 9999999))
+		polygon_edges.append(Vector2(9999999, 9999999))
 	
 	var new_image := Image.create_from_data(
 		texture_width, height, false, Image.FORMAT_RGF, polygon_edges.to_byte_array()
 	)
 	
-	var texture = ImageTexture.create_from_image(new_image)
+	var texture := ImageTexture.create_from_image(new_image)
 	
 	node_with_shader.material.set_shader_parameter("polygon_edges", texture)
 	node_with_shader.material.set_shader_parameter("light_fade_mult", light_fade_mult)

@@ -137,7 +137,7 @@ Room = NodePath("../../..")
 [node name="CollisionsAndVisuals" type="StaticBody2D" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1418591758]
 
 [node name="Light" type="PointLight2D" parent="MainPolygons/PolygonDisplays/IntersectionArea" unique_id=1513066304]
-energy = 0.9
+energy = 0.8
 
 [node name="CurrentPolygonOutline" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=1542420041 node_paths=PackedStringArray("Room")]
 unique_name_in_owner = true
