@@ -61,9 +61,12 @@ func _ready() -> void:
 [sub_resource type="Environment" id="Environment_vfrn5"]
 background_mode = 3
 glow_enabled = true
-glow_levels/1 = 1.0
+glow_levels/1 = 1.5
+glow_levels/2 = 0.7
+glow_levels/3 = 0.3
 glow_strength = 1.7
 adjustment_enabled = true
+adjustment_saturation = 1.3
 
 [node name="Room" type="Node2D" unique_id=1685634979 node_paths=PackedStringArray("color_1_parent", "color_2_parent", "color_3_parent")]
 process_physics_priority = 1000

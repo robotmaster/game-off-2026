@@ -15,13 +15,15 @@ rotating_allowed = true
 
 [node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Red" index="0" unique_id=1621396020]
 use_parent_material = true
+position = Vector2(4, 15)
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(-160, 48, -112, 80, -208, 144, -208, 48)
+polygon = PackedVector2Array(8, 31, -42, 120, -227, 103, -243, 28)
 
 [node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Blue" parent_id_path=PackedInt32Array(1709256072) index="0" unique_id=1219641244]
 use_parent_material = true
+position = Vector2(-29, 1)
 color = Color(0, 0, 1, 1)
-polygon = PackedVector2Array(-160, 48, 64, 112, -64, 128, -192, 80)
+polygon = PackedVector2Array(-98, 76, -94, 50, -64, 128, -192, 80, -150, 81, -131, 56, -138, 83, -129, 64, -131, 82, -124, 61, -115, 83, -107, 58)
 
 [node name="Green" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="2" unique_id=737133991]
 moving_allowed = true
@@ -31,7 +33,7 @@ rotating_allowed = true
 use_parent_material = true
 position = Vector2(64, -16)
 color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(-128, 80, -208, 48, -240, 96, -208, 96)
+polygon = PackedVector2Array(-129, 47, -306, 47, -240, 96, -208, 96)
 
 [node name="Exit" parent="." index="6" unique_id=1218272071]
 position = Vector2(224, -80)

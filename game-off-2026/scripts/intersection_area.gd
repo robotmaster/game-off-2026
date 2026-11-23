@@ -2,7 +2,7 @@ extends Node2D
 
 @export var Room : RoomRoot
 
-const INTERSECTION_POLYGON_COLOR = 5
+const INTERSECTION_POLYGON_COLOR = 1000
 
 const LIGHT_FADE_DIST = 20.0
 const LIGHT_FADE_MULT = 0.8
@@ -92,4 +92,5 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 
 func _process(delta: float) -> void:
 	var image : Image = $SubViewport.get_texture().get_image()
+	image.save_png("user://a.png")
 	light_texture.set_image(image)
