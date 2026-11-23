@@ -2,8 +2,8 @@ extends Node2D
 
 @export var Room : RoomRoot
 
-const LIGHT_FADE_DIST = 15.0
-const LIGHT_FADE_MULT = 0.7
+const LIGHT_FADE_DIST = 20.0
+const LIGHT_FADE_MULT = 0.8
 const LIGHT_POLYGON_SAMPLE_INTERVAL = 0.25
 
 var light_texture : ImageTexture
@@ -88,11 +88,4 @@ func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 
 func _process(delta: float) -> void:
 	var image : Image = $SubViewport.get_texture().get_image()
-	image.save_png("user://a.png")
 	light_texture.set_image(image)
-	
-	queue_redraw()
-
-func _draw() -> void:
-	pass
-	#draw_texture(light_texture, -get_viewport_rect().size / 2)

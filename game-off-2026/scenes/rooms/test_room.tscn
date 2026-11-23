@@ -2,13 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://b8ioekin6ogii" path="res://scenes/room.tscn" id="1_mjm5x"]
 
-[sub_resource type="Gradient" id="Gradient_mjm5x"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mjm5x"]
-gradient = SubResource("Gradient_mjm5x")
-width = 640
-height = 360
-
 [node name="Room" unique_id=1685634979 instance=ExtResource("1_mjm5x")]
 
 [node name="Tiles" parent="." index="1" unique_id=235629107]
@@ -39,9 +32,6 @@ use_parent_material = true
 position = Vector2(64, -16)
 color = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(-128, 80, -208, 48, -240, 96, -208, 96)
-
-[node name="Light" parent="MainPolygons/PolygonDisplays/IntersectionArea" parent_id_path=PackedInt32Array(529638720) index="2" unique_id=1513066304]
-texture = SubResource("GradientTexture2D_mjm5x")
 
 [node name="Exit" parent="." index="6" unique_id=1218272071]
 position = Vector2(224, -80)
