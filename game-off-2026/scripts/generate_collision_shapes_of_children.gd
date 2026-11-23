@@ -1,6 +1,6 @@
 extends Area2D
 
-const LIGHT_FADE_MULT = 0.9;
+const LIGHT_FADE_MULT = 0.95;
 
 func _ready() -> void:
 	var children := %Visuals.get_children()
@@ -14,7 +14,7 @@ func _ready() -> void:
 	
 	VisualTools.setup_polygon_light($Light)
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var all_polygons : Array[PackedVector2Array] = []
 	var children := %Visuals.get_children()
 	for child in children:
