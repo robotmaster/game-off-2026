@@ -3,8 +3,8 @@ extends TileMapLayer
  
 @export_tool_button("Retile Cells", "Callable") var button = retile_cells
 
-#func _process(delta: float) -> void:
-	#retile_cells()
+func _process(delta: float) -> void:
+	retile_cells()
 
 func retile_cells() -> void:
 	if not Engine.is_editor_hint():

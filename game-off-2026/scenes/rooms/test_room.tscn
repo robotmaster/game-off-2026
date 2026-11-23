@@ -10,9 +10,6 @@ tile_map_data = PackedByteArray("AADs/woAAAABAAEAAAABAAsAAAABAAIAAAACAAsAAAABAAI
 [node name="Polygon2D" type="Polygon2D" parent="SpecialElements/PolygonMoveArea/Visuals" parent_id_path=PackedInt32Array(1923202154) index="0" unique_id=487625139]
 polygon = PackedVector2Array(-304, 160, -224, 160, -224, 96, -304, 96)
 
-[node name="MainPolygons" parent="." index="3" unique_id=1591896628]
-visible = false
-
 [node name="Red" parent="MainPolygons/PolygonCanvas" parent_id_path=PackedInt32Array(1378756590) index="0" unique_id=349891011]
 rotating_allowed = true
 
