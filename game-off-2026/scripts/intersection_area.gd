@@ -8,6 +8,9 @@ const LIGHT_FADE_MULT = 0.9
 
 var light_texture : ImageTexture
 
+const EDITING_LIGHT_ENERGY = 0.1
+const PLAYING_LIGHT_ENERGY = 0.8
+
 #const INTERSECTION_AREA = preload("res://scenes/polygon_intersection_area.tscn")
 
 func _ready() -> void:
@@ -15,6 +18,10 @@ func _ready() -> void:
 	VisualTools.setup_polygon_light($Light)
 
 func do_polygon_collisions() -> void:
+	if Room.is_editing:
+		$Light.energy = EDITING_LIGHT_ENERGY
+	else:
+		$Light.energy = PLAYING_LIGHT_ENERGY
 	
 	var overlap := _get_overlap_in_polygons()
 	

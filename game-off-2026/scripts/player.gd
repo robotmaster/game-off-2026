@@ -17,7 +17,7 @@ const JUMP_STOP_SPEED_CUT := 1.8
 var _holding_jump_after_jump := false
 
 func _physics_process(delta: float) -> void:
-	
+	$PointLight2D.visible = true
 	if not Room or Room.is_editing:
 		return
 	

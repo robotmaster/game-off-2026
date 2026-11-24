@@ -2,7 +2,7 @@ extends CanvasGroup
 
 @export var Room : RoomRoot
 
-const EDITING_ALPHA = 0.8
+const EDITING_ALPHA = 0.7
 const PLAYING_ALPHA = 0.5
 
 func _process(_delta: float) -> void:

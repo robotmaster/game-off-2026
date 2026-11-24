@@ -44,6 +44,7 @@ wait_time = 0.07
 one_shot = true
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=759869463]
+visible = false
 energy = 0.5
 shadow_enabled = true
 shadow_color = Color(1, 1, 1, 0.003921569)

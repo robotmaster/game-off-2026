@@ -38,7 +38,7 @@ func setup_polygon_light(light: PointLight2D) -> SubViewport:
 	
 	var new_color_rect := ColorRect.new()
 	new_color_rect.name = "Glow Shader"
-	new_color_rect.material = shader_material
+	new_color_rect.material = shader_material.duplicate(true)
 	new_color_rect.size = get_viewport().get_visible_rect().size
 	
 	new_subviewport.add_child(new_color_rect)
@@ -102,6 +102,7 @@ func _process(_delta: float) -> void:
 		var light_texture = subviewport_to_texture[subviewport]
 		
 		var image : Image = subviewport.get_texture().get_image()
-		#image.save_png("user://a.png")
+		
+		image.save_png("user://" + subviewport.name + ".png")
 		
 		light_texture.set_image(image)

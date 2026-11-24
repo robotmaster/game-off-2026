@@ -16,6 +16,9 @@ tile_map_data = PackedByteArray("AADs/woAAAABAAEAAAABAAsAAAABAAIAAAACAAsAAAABAAI
 
 [node name="PolygonMoveArea" parent="SpecialElements/PolygonMoveAreas" parent_id_path=PackedInt32Array(907422819) index="0" unique_id=1814940687 instance=ExtResource("2_6ov0d")]
 polygon = PackedVector2Array(-304, 112, -224, 112, -224, 160, -304, 160)
+red_rotate_allowed = true
+green_translate_allowed = true
+blue_rotate_allowed = true
 
 [node name="Polygon2D" type="Polygon2D" parent="MainPolygons/PolygonCanvas/Red" parent_id_path=PackedInt32Array(349891011) index="0" unique_id=1621396020]
 use_parent_material = true
