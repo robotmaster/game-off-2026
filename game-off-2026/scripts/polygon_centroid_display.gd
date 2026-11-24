@@ -4,7 +4,7 @@ extends Node2D
 
 const CENTER_LINE_LENGTH = 5
 const CENTER_LINE_WIDTH = 2
-const CENTER_LINE_COLOR_MULT = Color(0.3, 0.3, 0.3, 0.7)
+const CENTER_LINE_COLOR_MULT = Color(0.3, 0.3, 0.3, 0.9)
 
 const CENTER_LINE_COLOR_ADD_EDIT = Color(0.7, 0.7, 0.7, 0)
 const CENTER_LINE_COLOR_ADD_PLAY = Color(0.4, 0.4, 0.4, 0)
@@ -18,10 +18,10 @@ func _draw() -> void:
 	for polygon_parent : PolygonParent in polygons_to_draw:
 		var centroid_global := polygon_parent.get_centroid()
 		
-		var up := centroid_global + Vector2(0, CENTER_LINE_LENGTH)
-		var down := centroid_global + Vector2(0, -CENTER_LINE_LENGTH)
-		var left := centroid_global + Vector2(-CENTER_LINE_LENGTH, 0)
-		var right := centroid_global + Vector2(CENTER_LINE_LENGTH, 0)
+		var up := centroid_global + Vector2(0, CENTER_LINE_LENGTH).rotated(polygon_parent.rotation)
+		var down := centroid_global + Vector2(0, -CENTER_LINE_LENGTH).rotated(polygon_parent.rotation)
+		var left := centroid_global + Vector2(-CENTER_LINE_LENGTH, 0).rotated(polygon_parent.rotation)
+		var right := centroid_global + Vector2(CENTER_LINE_LENGTH, 0).rotated(polygon_parent.rotation)
 		
 		var draw_color := polygon_parent.color * CENTER_LINE_COLOR_MULT + CENTER_LINE_COLOR_ADD_PLAY
 		if Room.is_editing:
