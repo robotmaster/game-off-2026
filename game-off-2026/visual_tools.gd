@@ -92,6 +92,7 @@ func update_polygon_light(light: PointLight2D, polygons: Array[PackedVector2Arra
 	node_with_shader.material.set_shader_parameter("light_fade_mult", light_fade_mult)
 
 func _process(_delta: float) -> void:
+	
 	for light in light_to_subviewport.keys():
 		var subviewport = light_to_subviewport[light]
 		if not is_instance_valid(light) or not is_instance_valid(subviewport):
@@ -103,6 +104,7 @@ func _process(_delta: float) -> void:
 		
 		var image : Image = subviewport.get_texture().get_image()
 		
-		image.save_png("user://" + subviewport.name + ".png")
+		#laggy, debug only
+		#image.save_png("user://" + subviewport.name + ".png")
 		
 		light_texture.set_image(image)

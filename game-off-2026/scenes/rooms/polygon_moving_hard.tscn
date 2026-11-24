@@ -66,9 +66,6 @@ scale = Vector2(0.9019608, 0.8773006)
 color = Color(0, 0, 1, 1)
 polygon = PackedVector2Array(-253.84782, 65.38461, -216.15216, -34.92308, 82.08695, -31.5035, 121.99999, 75.64336)
 
-[node name="Light" parent="MainPolygons/PolygonDisplays/IntersectionArea" parent_id_path=PackedInt32Array(529638720) index="1" unique_id=1513066304]
-energy = 0.6
-
 [node name="Exit" parent="." index="6" unique_id=1218272071]
 position = Vector2(-272, -80)
 

@@ -22,8 +22,11 @@ func do_polygon_collisions() -> void:
 		$Light.energy = EDITING_LIGHT_ENERGY
 	else:
 		$Light.energy = PLAYING_LIGHT_ENERGY
-	
+		
 	var overlap := _get_overlap_in_polygons()
+	
+	VisualTools.update_polygon_light($Light, overlap, LIGHT_FADE_MULT)
+	
 	
 	var children := $CollisionsAndVisuals.get_children()
 	for child in children:
@@ -40,8 +43,6 @@ func do_polygon_collisions() -> void:
 		var new_collision := CollisionPolygon2D.new()
 		new_collision.polygon = polygon_shape
 		$CollisionsAndVisuals.add_child(new_collision)
-		
-	VisualTools.update_polygon_light($Light, overlap, LIGHT_FADE_MULT)
 
 func _get_overlap_in_polygons() -> Array[PackedVector2Array]:
 	var overlap : Array[PackedVector2Array] = []

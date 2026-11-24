@@ -23,10 +23,10 @@ func _ready() -> void:
 	
 	$CollisionArea/Polygon.polygon = polygon
 	
-	VisualTools.setup_polygon_light($Light)
+	#VisualTools.setup_polygon_light($Light)
 
 func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
-	VisualTools.update_polygon_light($Light, [polygon], LIGHT_FADE_MULT)
+	#VisualTools.update_polygon_light($Light, [polygon], LIGHT_FADE_MULT)
 
 	var space_state := get_world_2d().direct_space_state
 	if not PolygonTools.is_colliding_with_area_currently(space_state, Player.hitbox, $CollisionArea):
