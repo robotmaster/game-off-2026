@@ -11,52 +11,37 @@ enum PolygonTransforms {
 	Rotate,
 	Scale
 }
-	
-var polygon_editing := 1
-var polygon_transform_editing : PolygonTransforms = PolygonTransforms.Translate
+
+var allowed_polygon_transforms := []
+
+var transform_editing_index := 0
 
 var is_editing := false
 
 func _ready() -> void:
 	ProjectSettings.set_setting("rendering/viewport/hdr_2d", true)
 	is_editing = true
-	_set_transform_editing_to_first_valid()
+	#_set_transform_editing_to_first_valid()
 	is_editing = false
 
 
 func _physics_process(_delta: float) -> void:
+	%PolygonMoveAreas.update_allowed_transforms()
+	
+	if Input.is_action_just_pressed("toggle_play"):
+		if len(allowed_polygon_transforms) > 0:
+			toggle_editing()
+	
 	if Input.is_action_just_pressed("switch_edit") and is_editing:
-		polygon_editing += 1
-		if polygon_editing > 3:
-			polygon_editing = 1
-		_set_transform_editing_to_first_valid()
-		
-
-	if Input.is_action_just_pressed("switch_property"):
-		var editing := get_current_polygon_editing()
-		var next_state := polygon_transform_editing
-		for i in range(3):
-			next_state = (next_state + 1) % PolygonTransforms.size()
-			if next_state in editing.allowed:
-				polygon_transform_editing = next_state
-				break
+		transform_editing_index += 1
+	
+	if transform_editing_index >= len(allowed_polygon_transforms):
+		transform_editing_index = 0
 	
 	if Input.is_action_just_pressed("reset"):
 		reset_room()
 	
 	%IntersectionArea.do_polygon_collisions()
-
-func _set_transform_editing_to_first_valid() -> void:
-	var editing := get_current_polygon_editing()
-	polygon_transform_editing = PolygonTransforms.Translate
-	for poly_transform in PolygonTransforms.values():
-		
-		if poly_transform in editing.allowed:
-			polygon_transform_editing = poly_transform
-			return
-
-
-
 
 func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:
 	var children := []
@@ -70,14 +55,9 @@ func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:
 func get_current_polygon_editing() -> PolygonParent:
 	if not is_editing:
 		return null
-	match polygon_editing:
-		1:
-			return color_1_parent
-		2:
-			return color_2_parent
-		3:
-			return color_3_parent
-	return null
+	if transform_editing_index >= len(allowed_polygon_transforms):
+		return null
+	return allowed_polygon_transforms[transform_editing_index]["node"]
 
 func toggle_editing() -> void:
 	is_editing = not is_editing

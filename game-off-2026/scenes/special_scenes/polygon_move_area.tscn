@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bb5wm8lt3m5hk"]
+
+[ext_resource type="Script" uid="uid://crn75i0wmp5it" path="res://scripts/polygon_move_area.gd" id="2_62lx5"]
+[ext_resource type="Shader" uid="uid://ct4ttth4kqu8l" path="res://shaders/polygon_move_area.gdshader" id="2_boppj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62lx5"]
+shader = ExtResource("2_boppj")
+
+[node name="PolygonMoveArea" type="Polygon2D" unique_id=1814940687]
+material = SubResource("ShaderMaterial_62lx5")
+script = ExtResource("2_62lx5")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=646149647]
+energy = 1.5
+
+[node name="CollisionArea" type="Area2D" parent="." unique_id=108656945]
+
+[node name="Polygon" type="CollisionPolygon2D" parent="CollisionArea" unique_id=1785568731]

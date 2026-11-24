@@ -2,28 +2,15 @@ extends Node2D
 class_name PolygonParent
 
 @export var Room : RoomRoot
-@export var moving_allowed := false
-@export var rotating_allowed := false
-@export var scaling_allowed := false
 
 @export_group("Dont Touch")
 @export var color : Color
 
 const POLYGON_MOVE_SPEED = 170
 const POLYGON_ROTATION_SPEED = 1.9
-const POLYGON_SCALE_SPEED_MULT = 1.7
+const POLYGON_SCALE_SPEED_MULT = 2.4
 
 const SLOW_MOVE_MULT = 0.25
-
-var allowed = []
-
-func _ready() -> void:
-	if moving_allowed:
-		allowed.append(Room.PolygonTransforms.Translate)
-	if rotating_allowed:
-		allowed.append(Room.PolygonTransforms.Rotate)
-	if scaling_allowed:
-		allowed.append(Room.PolygonTransforms.Scale)
 
 func _physics_process(delta: float) -> void:
 	_center_polygon_on_centroid()
@@ -33,13 +20,13 @@ func _physics_process(delta: float) -> void:
 	_center_polygon_on_centroid()
 
 func _move_polygon(delta: float) -> void:
-	if Room.polygon_transform_editing == Room.PolygonTransforms.Translate and moving_allowed:
+	if Room.allowed_polygon_transforms[Room.transform_editing_index]["transform"] == Room.PolygonTransforms.Translate:
 		if Input.is_action_pressed("move_slow"):
 			global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED * SLOW_MOVE_MULT
 		else:
 			global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED
 	
-	elif Room.polygon_transform_editing == Room.PolygonTransforms.Rotate and rotating_allowed:
+	elif Room.allowed_polygon_transforms[Room.transform_editing_index]["transform"] == Room.PolygonTransforms.Rotate:
 		var axis : float = sign(Input.get_axis("left", "right") + Input.get_axis("down", "up"))
 		if Input.is_action_pressed("move_slow"):
 		
@@ -47,7 +34,7 @@ func _move_polygon(delta: float) -> void:
 		else:
 			global_rotation += POLYGON_ROTATION_SPEED * axis * delta
 	
-	elif Room.polygon_transform_editing == Room.PolygonTransforms.Scale and scaling_allowed:
+	elif Room.allowed_polygon_transforms[Room.transform_editing_index]["transform"] == Room.PolygonTransforms.Scale:
 		if Input.is_action_pressed("move_slow"):
 			scale.x *= pow(POLYGON_SCALE_SPEED_MULT, delta * SLOW_MOVE_MULT) ** Input.get_axis("left", "right")
 			scale.y *= pow(POLYGON_SCALE_SPEED_MULT, delta * SLOW_MOVE_MULT) ** Input.get_axis("up", "down")
