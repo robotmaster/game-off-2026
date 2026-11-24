@@ -15,18 +15,10 @@ const PLAYING_LIGHT_ENERGY = 0.8
 
 func _ready() -> void:
 	$CollisionsAndVisuals.global_transform = Transform2D()
-	VisualTools.setup_polygon_light($Light)
 
 func do_polygon_collisions() -> void:
-	if Room.is_editing:
-		$Light.energy = EDITING_LIGHT_ENERGY
-	else:
-		$Light.energy = PLAYING_LIGHT_ENERGY
-		
+	
 	var overlap := _get_overlap_in_polygons()
-	
-	VisualTools.update_polygon_light($Light, overlap, LIGHT_FADE_MULT)
-	
 	
 	var children := $CollisionsAndVisuals.get_children()
 	for child in children:
@@ -34,6 +26,11 @@ func do_polygon_collisions() -> void:
 		
 	
 	for polygon_shape in overlap:
+		if Room.is_editing:
+			VisualTools.add_polygon_light(polygon_shape, EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+		else:
+			VisualTools.add_polygon_light(polygon_shape, PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+		
 		var new_intersection_area := Polygon2D.new()
 		new_intersection_area.polygon = polygon_shape
 		new_intersection_area.color = Color(INTERSECTION_POLYGON_COLOR, INTERSECTION_POLYGON_COLOR, INTERSECTION_POLYGON_COLOR, 1)

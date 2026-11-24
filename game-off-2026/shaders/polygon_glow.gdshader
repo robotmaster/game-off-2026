@@ -2,7 +2,9 @@ shader_type canvas_item;
 render_mode unshaded;
 
 uniform sampler2D polygon_edges : filter_nearest;
-uniform float light_fade_mult;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
 
 vec2 get_point_number(int num) {
 	int width = textureSize(polygon_edges, 0).x;
@@ -46,7 +48,12 @@ void fragment() {
 		
 	}
 	
-	float brightness = pow(light_fade_mult, min_distance);
-	COLOR = vec4(brightness, brightness, brightness, 1);
+	vec4 color_below = textureLod(screen_texture, SCREEN_UV, 0.0);
+	
+	//float brightness = pow(light_fade_mult, min_distance);
+	float brightness = 0.5;
+	
+	COLOR = color_below * vec4(brightness + 1.0, brightness + 1.0, brightness + 1.0, 1);
+	//COLOR = vec4(brightness, brightness, brightness, 1);
 	//COLOR = vec4(brightness, brightness, brightness, 1.0);
 }

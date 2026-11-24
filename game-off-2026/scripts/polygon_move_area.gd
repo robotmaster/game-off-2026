@@ -1,6 +1,7 @@
 extends Polygon2D
 class_name PolygonMoveArea
 
+const LIGHT_ENERGY = 0.6;
 const LIGHT_FADE_MULT = 0.95;
 
 @export_group("Red Editing")
@@ -22,11 +23,9 @@ func _ready() -> void:
 	global_transform = Transform2D()
 	
 	$CollisionArea/Polygon.polygon = polygon
-	
-	#VisualTools.setup_polygon_light($Light)
 
 func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
-	#VisualTools.update_polygon_light($Light, [polygon], LIGHT_FADE_MULT)
+	VisualTools.add_polygon_light(polygon, LIGHT_FADE_MULT, LIGHT_ENERGY)
 
 	var space_state := get_world_2d().direct_space_state
 	if not PolygonTools.is_colliding_with_area_currently(space_state, Player.hitbox, $CollisionArea):

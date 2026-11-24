@@ -1,112 +1,64 @@
 extends Node
 
-var light_to_subviewport := {
-}
-
-var subviewport_to_texture := {
-	
-}
-
 var shader_material : ShaderMaterial
+var polygons_to_draw : Array
+
+var color_rect : ColorRect
 
 func _ready() -> void:
-	process_physics_priority = 1000
+	process_physics_priority = -1000
 	process_priority = 1000
 	shader_material = ShaderMaterial.new()
 	shader_material.shader = load("res://shaders/polygon_glow.gdshader")
+	
+	var viewport_size := get_viewport().get_visible_rect().size
+	
+	color_rect = ColorRect.new()
+	color_rect.position = -viewport_size / 2
+	color_rect.size = viewport_size
+	color_rect.material = shader_material
+	get_tree().current_scene.add_child.call_deferred(color_rect)
+	
+func _physics_process(delta: float) -> void:
+	polygons_to_draw = []
 
-func setup_polygon_light(light: PointLight2D) -> SubViewport:
+func add_polygon_light(polygon: PackedVector2Array, light_energy: float, light_fade_mult: float) -> void:
+	polygons_to_draw.append(
+		{
+			"polygon": polygon,
+			"energy": light_energy,
+			"fade": light_fade_mult
+		}
+	)
 	
-	light.global_transform = Transform2D()
-	var new_subviewport := SubViewport.new()
-	
-	new_subviewport.size = get_viewport().get_visible_rect().size
-	
-	
-	var image : Image = new_subviewport.get_texture().get_image()
-	
-	var light_texture := ImageTexture.create_from_image(image)
-	light_texture.set_size_override(get_viewport().get_visible_rect().size)
-	
-	light.texture = light_texture
-	
-	light_to_subviewport[light] = new_subviewport
-	subviewport_to_texture[new_subviewport] = light_texture
-	
-	new_subviewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	
-	var filled_polygons_parent := Node2D.new()
-	filled_polygons_parent.name = "Polygon Parent"
-	
-	var new_color_rect := ColorRect.new()
-	new_color_rect.name = "Glow Shader"
-	new_color_rect.material = shader_material.duplicate(true)
-	new_color_rect.size = get_viewport().get_visible_rect().size
-	
-	new_subviewport.add_child(new_color_rect)
-	new_subviewport.add_child(filled_polygons_parent)
-	
-	get_tree().current_scene.add_child.call_deferred(new_subviewport)
-	
-	return new_subviewport
 
-
-func update_polygon_light(light: PointLight2D, polygons: Array[PackedVector2Array], light_fade_mult: float) -> void:
-	var subviewport : SubViewport = light_to_subviewport[light]
+func _process(_delta: float) -> void:
 	
-	var children := subviewport.get_node("Polygon Parent").get_children()
-	for child in children:
-		child.queue_free()
+	var polygon_edges : PackedVector4Array = []
 	
-	var node_with_shader : CanvasItem = subviewport.get_node("Glow Shader")
-	
-	var polygon_edges : PackedVector2Array = []
-	
-	for polygon in polygons:
-		var new_polygon_2d := Polygon2D.new()
-		
-		new_polygon_2d.polygon = polygon
-		new_polygon_2d.position = get_viewport().get_visible_rect().size / 2
-		#new_polygon_2d.color = Color.RED
-		
-		subviewport.get_node("Polygon Parent").add_child(new_polygon_2d)
-		
+	for polygon_info : Dictionary in polygons_to_draw:
+		var polygon : PackedVector2Array = polygon_info["polygon"]
 		for point_index in range(len(polygon)):
 			var next_index := point_index + 1
 			if next_index >= len(polygon):
 				next_index = 0
-			polygon_edges.append(polygon[point_index] + get_viewport().get_visible_rect().size / 2)
-			polygon_edges.append(polygon[next_index] + get_viewport().get_visible_rect().size / 2)
+			
+			for index in [point_index, next_index]:
+				var point_pos := polygon[index] + get_viewport().get_visible_rect().size / 2
+				polygon_edges.append(Vector4(point_pos.x, point_pos.y, polygon_info["energy"], polygon_info["fade"]))
+					
 	
-	var texture_width := 32 * 2
+	var texture_width := 64 * 2
 	var height : int = (len(polygon_edges) / texture_width) + 1
 	
 	while len(polygon_edges) < texture_width * height:
-		polygon_edges.append(Vector2(9999999, 9999999))
-		polygon_edges.append(Vector2(9999999, 9999999))
+		polygon_edges.append(Vector4(9999999, 9999999, 0, 0))
+		polygon_edges.append(Vector4(9999999, 9999999, 0, 0))
 	var new_image := Image.create_from_data(
-		texture_width, height, false, Image.FORMAT_RGF, polygon_edges.to_byte_array()
+		texture_width, height, false, Image.FORMAT_RGBAF, polygon_edges.to_byte_array()
 	)
 	
 	var texture := ImageTexture.create_from_image(new_image)
 	
-	node_with_shader.material.set_shader_parameter("polygon_edges", texture)
-	node_with_shader.material.set_shader_parameter("light_fade_mult", light_fade_mult)
-
-func _process(_delta: float) -> void:
 	
-	for light in light_to_subviewport.keys():
-		var subviewport = light_to_subviewport[light]
-		if not is_instance_valid(light) or not is_instance_valid(subviewport):
-			subviewport_to_texture.erase(subviewport)
-			light_to_subviewport.erase(light)
-	
-	for subviewport in subviewport_to_texture.keys():
-		var light_texture = subviewport_to_texture[subviewport]
-		
-		var image : Image = subviewport.get_texture().get_image()
-		
-		#laggy, debug only
-		#image.save_png("user://" + subviewport.name + ".png")
-		
-		light_texture.set_image(image)
+	color_rect.material.set_shader_parameter("polygon_edges", texture)

@@ -10,9 +10,6 @@ shader = ExtResource("2_boppj")
 material = SubResource("ShaderMaterial_62lx5")
 script = ExtResource("2_62lx5")
 
-[node name="Light" type="PointLight2D" parent="." unique_id=646149647]
-energy = 1.5
-
 [node name="CollisionArea" type="Area2D" parent="." unique_id=108656945]
 
 [node name="Polygon" type="CollisionPolygon2D" parent="CollisionArea" unique_id=1785568731]
