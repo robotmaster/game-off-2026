@@ -10,6 +10,8 @@ var subviewport_to_texture := {
 var shader_material : ShaderMaterial
 
 func _ready() -> void:
+	process_physics_priority = 1000
+	process_priority = 1000
 	shader_material = ShaderMaterial.new()
 	shader_material.shader = load("res://shaders/polygon_glow.gdshader")
 
