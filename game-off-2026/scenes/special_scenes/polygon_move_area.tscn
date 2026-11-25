@@ -5,6 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_62lx5"]
 shader = ExtResource("2_boppj")
+shader_parameter/time = 0.0
 
 [node name="PolygonMoveArea" type="Polygon2D" unique_id=1814940687]
 material = SubResource("ShaderMaterial_62lx5")

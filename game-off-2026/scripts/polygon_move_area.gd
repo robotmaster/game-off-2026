@@ -18,6 +18,8 @@ const LIGHT_FADE_MULT = 0.95;
 @export var blue_rotate_allowed := false
 @export var blue_scale_allowed := false
 
+var time := 0.0
+
 func _ready() -> void:
 	polygon = global_transform * polygon
 	
@@ -26,6 +28,7 @@ func _ready() -> void:
 	$CollisionArea/Polygon.polygon = polygon
 
 func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
+	
 	if Room.is_editing:
 		VisualTools.add_polygon_light([polygon], EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
 	else:
@@ -58,3 +61,7 @@ func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
 		allowed_transforms.append({"node": Room.color_3_parent, "transform": Room.PolygonTransforms.Scale})
 	
 	Room.allowed_polygon_transforms = allowed_transforms
+
+func _process(delta: float) -> void:
+	time += delta
+	material.set_shader_parameter("time", time)
