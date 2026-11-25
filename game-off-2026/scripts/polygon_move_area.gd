@@ -1,7 +1,7 @@
 extends Polygon2D
 class_name PolygonMoveArea
 
-const PLAYING_LIGHT_ENERGY = 0.4;
+const PLAYING_LIGHT_ENERGY = 0.5;
 const EDITING_LIGHT_ENERGY = 0.2;
 const LIGHT_FADE_MULT = 0.95;
 
@@ -27,9 +27,10 @@ func _ready() -> void:
 
 func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
 	if Room.is_editing:
-		VisualTools.add_polygon_light(polygon, EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+		VisualTools.add_polygon_light([polygon], EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
 	else:
-		VisualTools.add_polygon_light(polygon, PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+		VisualTools.add_polygon_light([polygon], PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+	
 	var space_state := get_world_2d().direct_space_state
 	if not PolygonTools.is_colliding_with_area_currently(space_state, Player.hitbox, $CollisionArea):
 		return

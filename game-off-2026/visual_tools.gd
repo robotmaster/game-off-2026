@@ -29,10 +29,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	polygons_to_draw = []
 
-func add_polygon_light(polygon: PackedVector2Array, light_energy: float, light_fade_mult: float) -> void:
+func add_polygon_light(polygon: Array[PackedVector2Array], light_energy: float, light_fade_mult: float) -> void:
 	polygons_to_draw.append(
 		{
-			"polygon": polygon,
+			"polygons": polygon,
 			"energy": light_energy,
 			"fade": light_fade_mult
 		}
@@ -44,17 +44,19 @@ func _process(_delta: float) -> void:
 	var polygon_edges : PackedVector4Array = []
 	
 	for polygon_info : Dictionary in polygons_to_draw:
-		var polygon : PackedVector2Array = polygon_info["polygon"]
-		for point_index in range(len(polygon)):
-			var point_pos := polygon[point_index] + get_viewport().get_visible_rect().size / 2
-			polygon_edges.append(Vector4(point_pos.x, point_pos.y, polygon_info["energy"], polygon_info["fade"]))
-		polygon_edges.append(Vector4(99999999999999, 99999999999999, 0, 0))
+		var polygons : Array[PackedVector2Array] = polygon_info["polygons"]
+		for polygon in polygons:
+			for point_index in range(len(polygon)):
+				var point_pos := polygon[point_index] + get_viewport().get_visible_rect().size / 2
+				polygon_edges.append(Vector4(point_pos.x, point_pos.y, polygon_info["energy"], polygon_info["fade"]))
+			polygon_edges.append(Vector4(99999999999999, 99999999999999, 0, 0))
+		polygon_edges.append(Vector4(-99999999999999, -99999999999999, 0, 0))
 	
 	var texture_width := 1 * 2
 	var height : int = (len(polygon_edges) / texture_width) + 1
 	
 	while len(polygon_edges) < texture_width * height:
-		polygon_edges.append(Vector4(99999999999999, 999999999999, 0, 0))
+		polygon_edges.append(Vector4(-99999999999999, -999999999999, 0, 0))
 	
 	var new_image := Image.create_from_data(
 		texture_width, height, false, Image.FORMAT_RGBAF, polygon_edges.to_byte_array()

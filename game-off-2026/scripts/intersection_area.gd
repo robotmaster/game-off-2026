@@ -23,12 +23,13 @@ func do_polygon_collisions() -> void:
 	for child in children:
 		child.queue_free()
 		
+	if Room.is_editing:
+		VisualTools.add_polygon_light(overlap, EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+	else:
+		VisualTools.add_polygon_light(overlap, PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+		
 	
 	for polygon_shape in overlap:
-		if Room.is_editing:
-			VisualTools.add_polygon_light(polygon_shape, EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
-		else:
-			VisualTools.add_polygon_light(polygon_shape, PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
 		
 		var new_intersection_area := Polygon2D.new()
 		new_intersection_area.polygon = polygon_shape

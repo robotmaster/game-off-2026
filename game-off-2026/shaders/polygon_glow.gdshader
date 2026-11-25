@@ -29,7 +29,7 @@ void fragment() {
 	
 	for (int point = 0; point < total_size; point += 1) {
 		vec4 point_1_info = get_point_number(point);
-		if (point_1_info.r > 99999999999.9) {
+		if (point_1_info.r < -99999999999.9) {
 			if (hit_point_exactly) {
 				inside_polygon = !inside_polygon;
 			}
@@ -44,6 +44,8 @@ void fragment() {
 			inside_polygon = false;
 			hit_point_exactly = false;
 			min_distance = 99999999999999.0;
+		}
+		if (abs(point_1_info.r) > 99999999999.9) {
 			polygon_first_point_index = point + 1;
 			continue;
 		}
@@ -52,7 +54,7 @@ void fragment() {
 		polygon_bright_fade = point_1_info.a;
 		
 		vec4 point_2_info = get_point_number(point + 1);
-		if (point_2_info.r > 99999999999.9) {
+		if (abs(point_2_info.r) > 99999999999.9) {
 			point_2_info = get_point_number(polygon_first_point_index);
 		}
 		
