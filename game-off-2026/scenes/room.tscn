@@ -19,8 +19,13 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_277jj"]
 shader = ExtResource("3_jn645")
-shader_parameter/alpha = 0.6
+shader_parameter/alpha = 0.4
 shader_parameter/channel_colors = Color(0.94509804, 0.81960785, 1, 1)
+shader_parameter/flash_interval = 4.0
+shader_parameter/flash_width = 50.0
+shader_parameter/flash_speed = 600.0
+shader_parameter/flash_alpha = 0.6
+shader_parameter/time = 0.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jn645"]
 blend_mode = 1

@@ -5,7 +5,11 @@ extends CanvasGroup
 const EDITING_ALPHA = 0.7
 const PLAYING_ALPHA = 0.3
 
-func _process(_delta: float) -> void:
+var time := 0.0
+
+func _process(delta: float) -> void:
+	time += delta
+	material.set_shader_parameter("time", time)
 	if Room.is_editing:
 		material.set_shader_parameter("alpha", EDITING_ALPHA)
 	else:
