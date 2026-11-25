@@ -37,6 +37,7 @@ shape = SubResource("RectangleShape2D_apwu6")
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1187291696]
 visible = false
 position = Vector2(0, -15)
-energy = 0.3
+energy = 0.4
+shadow_enabled = true
 texture = SubResource("GradientTexture2D_apwu6")
 texture_scale = 2.0

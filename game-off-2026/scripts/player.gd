@@ -22,8 +22,17 @@ const LOCKED_FLASH_SPEED = 0.08
 @export var locked_flash_color : Color
 var locked_flash_timer := 0.0
 
+const EDITING_LIGHT_ENERGY = 0.2
+const PLAYING_LIGHT_ENERGY = 0.6
+#const LIGHT_SPREAD = 0.98
+
 func _physics_process(delta: float) -> void:
 	$PointLight2D.visible = true
+	if Room.is_editing:
+		$PointLight2D.energy = EDITING_LIGHT_ENERGY
+	else:
+		$PointLight2D.energy = PLAYING_LIGHT_ENERGY
+	
 	if not Room or Room.is_editing:
 		is_locked = true
 		velocity = Vector2()
@@ -75,6 +84,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		locked_flash_timer = 0
 		modulate = Color(1, 1, 1)
+	
+	#var light_poly : Array[PackedVector2Array]= [[
+		#global_position + Vector2(0, 0.1),
+		#global_position + Vector2(0, -0.1),
+		#global_position + Vector2(0.1, 0),
+		#global_position + Vector2(-0.1, 0),
+	#]]
+	#if Room.is_editing:
+		#VisualTools.add_polygon_light(light_poly, EDITING_LIGHT_ENERGY, LIGHT_SPREAD)
+	#else:
+		#VisualTools.add_polygon_light(light_poly, PLAYING_LIGHT_ENERGY, LIGHT_SPREAD)
 
 func _handle_horizontal_movement(delta: float) -> void:
 	var direction := Input.get_axis("left", "right")
