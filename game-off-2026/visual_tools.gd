@@ -17,7 +17,14 @@ func _ready() -> void:
 	color_rect.position = -viewport_size / 2
 	color_rect.size = viewport_size
 	color_rect.material = shader_material
-	get_tree().current_scene.add_child.call_deferred(color_rect)
+	color_rect.z_index = 1000
+	
+	var back_buffer_copy := BackBufferCopy.new()
+	back_buffer_copy.z_index = 1000
+	back_buffer_copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
+	
+	back_buffer_copy.add_child(color_rect)
+	get_node("/root").add_child.call_deferred(back_buffer_copy)
 	
 func _physics_process(delta: float) -> void:
 	polygons_to_draw = []
@@ -39,24 +46,20 @@ func _process(_delta: float) -> void:
 	for polygon_info : Dictionary in polygons_to_draw:
 		var polygon : PackedVector2Array = polygon_info["polygon"]
 		for point_index in range(len(polygon)):
-			var next_index := point_index + 1
-			if next_index >= len(polygon):
-				next_index = 0
-			
-			for index in [point_index, next_index]:
-				var point_pos := polygon[index] + get_viewport().get_visible_rect().size / 2
-				polygon_edges.append(Vector4(point_pos.x, point_pos.y, polygon_info["energy"], polygon_info["fade"]))
-					
+			var point_pos := polygon[point_index] + get_viewport().get_visible_rect().size / 2
+			polygon_edges.append(Vector4(point_pos.x, point_pos.y, polygon_info["energy"], polygon_info["fade"]))
+		polygon_edges.append(Vector4(99999999999999, 99999999999999, 0, 0))
 	
-	var texture_width := 64 * 2
+	var texture_width := 1 * 2
 	var height : int = (len(polygon_edges) / texture_width) + 1
 	
 	while len(polygon_edges) < texture_width * height:
-		polygon_edges.append(Vector4(9999999, 9999999, 0, 0))
-		polygon_edges.append(Vector4(9999999, 9999999, 0, 0))
+		polygon_edges.append(Vector4(99999999999999, 999999999999, 0, 0))
+	
 	var new_image := Image.create_from_data(
 		texture_width, height, false, Image.FORMAT_RGBAF, polygon_edges.to_byte_array()
 	)
+	
 	
 	var texture := ImageTexture.create_from_image(new_image)
 	

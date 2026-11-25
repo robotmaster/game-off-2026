@@ -4,7 +4,7 @@ extends Node2D
 
 const INTERSECTION_POLYGON_COLOR = 1
 
-const LIGHT_FADE_MULT = 0.9
+const LIGHT_FADE_MULT = 0.95
 
 var light_texture : ImageTexture
 
@@ -17,7 +17,6 @@ func _ready() -> void:
 	$CollisionsAndVisuals.global_transform = Transform2D()
 
 func do_polygon_collisions() -> void:
-	
 	var overlap := _get_overlap_in_polygons()
 	
 	var children := $CollisionsAndVisuals.get_children()
