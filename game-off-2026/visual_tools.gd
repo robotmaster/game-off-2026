@@ -1,22 +1,29 @@
 extends Node
 
-var shader_material : ShaderMaterial
 var polygons_to_draw : Array
 
 var color_rect : ColorRect
 
+var transition_effect : ColorRect
+
+var transition_timer := 0.0
+
 func _ready() -> void:
 	process_physics_priority = -1000
 	process_priority = 1000
-	shader_material = ShaderMaterial.new()
-	shader_material.shader = load("res://shaders/polygon_glow.gdshader")
+	
+	var polygon_light_shader_material := ShaderMaterial.new()
+	polygon_light_shader_material.shader = load("res://shaders/polygon_glow.gdshader")
+	
+	var transition_shader := ShaderMaterial.new()
+	transition_shader.shader = load("res://shaders/transition.gdshader")
 	
 	var viewport_size := get_viewport().get_visible_rect().size
 	
 	color_rect = ColorRect.new()
 	color_rect.position = -viewport_size / 2
 	color_rect.size = viewport_size
-	color_rect.material = shader_material
+	color_rect.material = polygon_light_shader_material
 	color_rect.z_index = 1000
 	
 	var back_buffer_copy := BackBufferCopy.new()
@@ -25,6 +32,20 @@ func _ready() -> void:
 	
 	back_buffer_copy.add_child(color_rect)
 	get_node("/root").add_child.call_deferred(back_buffer_copy)
+	
+	
+	transition_effect = ColorRect.new()
+	transition_effect.position = -viewport_size / 2
+	transition_effect.size = viewport_size
+	transition_effect.material = transition_shader
+	transition_effect.z_index = 2000
+	
+	var transition_back_buffer_copy := BackBufferCopy.new()
+	transition_back_buffer_copy.z_index = 2000
+	transition_back_buffer_copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
+	
+	transition_back_buffer_copy.add_child(transition_effect)
+	get_node("/root").add_child.call_deferred(transition_back_buffer_copy)
 	
 func _physics_process(delta: float) -> void:
 	polygons_to_draw = []
@@ -37,9 +58,10 @@ func add_polygon_light(polygon: Array[PackedVector2Array], light_energy: float, 
 			"fade": light_fade_mult
 		}
 	)
-	
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	transition_timer += delta
+	transition_effect.material.set_shader_parameter("time", transition_timer)
 	
 	var polygon_edges : PackedVector4Array = []
 	
