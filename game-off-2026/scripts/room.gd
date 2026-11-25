@@ -26,13 +26,13 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	%PolygonMoveAreas.update_allowed_transforms()
 	
 	if Input.is_action_just_pressed("toggle_play"):
-		if is_editing or not $Player.is_locked:
-			if len(allowed_polygon_transforms) > 0:
-				toggle_editing()
+		if is_editing or (not $Player.is_locked and len(allowed_polygon_transforms) > 0):
+			toggle_editing()
 	
-	%PolygonMoveAreas.update_allowed_transforms()
+	%PolygonMoveAreas.update_polygon_lights()
 	
 	if Input.is_action_just_pressed("switch_edit") and is_editing:
 		transform_editing_index += 1

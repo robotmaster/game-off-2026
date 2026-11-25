@@ -4,7 +4,7 @@ extends Node2D
 @export var color_representing : Color
 @export var node_representing : PolygonParent
 
-const OFF_MODULATE = Color(0.4, 0.2, 0.2)
+const OFF_MODULATE = Color(0.5, 0.4, 0.4)
 const PLAYING_MODULATE = Color(1, 1, 1, 0.4)
 const EDITING_MODULATE = Color(1, 1, 1, 0.7)
 

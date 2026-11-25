@@ -10,6 +10,7 @@ const rooms = [
 	"res://scenes/rooms/falling_lock_intro.tscn",
 	"res://scenes/rooms/polygon_moving_hard.tscn",
 	"res://scenes/rooms/rotations_intro.tscn",
+	"res://scenes/rooms/rotations_hard.tscn"
 ]
 
 func next_room() -> String:

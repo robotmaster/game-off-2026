@@ -26,12 +26,36 @@ const EDITING_LIGHT_ENERGY = 0.2
 const PLAYING_LIGHT_ENERGY = 0.6
 #const LIGHT_SPREAD = 0.98
 
+const MAX_SAVES = 5
+
+var last_on_floor_spot := Vector2()
+
+var saved_jumps : Array[Dictionary]
+
 func _physics_process(delta: float) -> void:
 	$PointLight2D.visible = true
 	if Room.is_editing:
 		$PointLight2D.energy = EDITING_LIGHT_ENERGY
 	else:
 		$PointLight2D.energy = PLAYING_LIGHT_ENERGY
+	
+	if Input.is_action_just_pressed("revert_jump") and not Room.is_editing and len(saved_jumps) > 0:
+		var saved_info : Dictionary = saved_jumps.pop_back()
+		%JumpBoostingTimer.stop()
+		%JumpBufferTimer.stop()
+		%CoyoteTimer.stop()
+		global_position = saved_info["player_pos"]
+		Room.color_1_parent.global_position = saved_info["red_info"]["pos"]
+		Room.color_1_parent.global_rotation = saved_info["red_info"]["rot"]
+		Room.color_1_parent.global_scale = saved_info["red_info"]["scale"]
+		Room.color_2_parent.global_position = saved_info["green_info"]["pos"]
+		Room.color_2_parent.global_rotation = saved_info["green_info"]["rot"]
+		Room.color_2_parent.global_scale = saved_info["green_info"]["scale"]
+		Room.color_3_parent.global_position = saved_info["blue_info"]["pos"]
+		Room.color_3_parent.global_rotation = saved_info["blue_info"]["rot"]
+		Room.color_3_parent.global_scale = saved_info["blue_info"]["scale"]
+		return
+	
 	
 	if not Room or Room.is_editing:
 		is_locked = true
@@ -49,6 +73,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if is_on_floor():
+		last_on_floor_spot = global_position
 		is_locked = false
 		velocity = get_gravity() * delta * FLOOR_GRAVITY_MULT
 	elif velocity.y > 0:
@@ -65,6 +90,27 @@ func _physics_process(delta: float) -> void:
 		%JumpBufferTimer.start()
 	
 	if not is_locked and not %JumpBufferTimer.is_stopped() and not %CoyoteTimer.is_stopped():
+		saved_jumps.append({
+			"player_pos": last_on_floor_spot,
+			"red_info": {
+				"pos": Room.color_1_parent.global_position,
+				"rot": Room.color_1_parent.global_rotation,
+				"scale": Room.color_1_parent.global_scale,
+			},
+			"green_info": {
+				"pos": Room.color_2_parent.global_position,
+				"rot": Room.color_2_parent.global_rotation,
+				"scale": Room.color_2_parent.global_scale,
+			},
+			"blue_info": {
+				"pos": Room.color_3_parent.global_position,
+				"rot": Room.color_3_parent.global_rotation,
+				"scale": Room.color_3_parent.global_scale,
+			}
+		})
+		if len(saved_jumps) > MAX_SAVES:
+			saved_jumps.pop_front()
+		
 		%JumpBufferTimer.stop()
 		%JumpBoostingTimer.start()
 		_holding_jump_after_jump = true

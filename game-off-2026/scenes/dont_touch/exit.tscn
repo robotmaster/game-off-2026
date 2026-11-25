@@ -40,4 +40,4 @@ position = Vector2(0, -15)
 energy = 0.4
 shadow_enabled = true
 texture = SubResource("GradientTexture2D_apwu6")
-texture_scale = 2.0
+texture_scale = 4.0

@@ -28,13 +28,8 @@ func _ready() -> void:
 	$CollisionArea/Polygon.polygon = polygon
 
 func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
-	
-	if Room.is_editing:
-		VisualTools.add_polygon_light([polygon], EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
-	else:
-		VisualTools.add_polygon_light([polygon], PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
-	
 	var space_state := get_world_2d().direct_space_state
+	
 	if not PolygonTools.is_colliding_with_area_currently(space_state, Player.hitbox, $CollisionArea):
 		return
 	
@@ -62,6 +57,13 @@ func update_move_areas(Room : RoomRoot, Player : PlayerClass) -> void:
 	
 	Room.allowed_polygon_transforms = allowed_transforms
 
+func update_polygon_light(Room : RoomRoot) -> void:
+	if Room.is_editing:
+		VisualTools.add_polygon_light([polygon], EDITING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+	else:
+		VisualTools.add_polygon_light([polygon], PLAYING_LIGHT_ENERGY, LIGHT_FADE_MULT)
+
 func _process(delta: float) -> void:
+	
 	time += delta
 	material.set_shader_parameter("time", time)
