@@ -8,6 +8,14 @@ var transition_effect : ColorRect
 
 var transition_timer := 0.0
 
+var transitioning_out := true
+var transitioning := false
+
+var automatically_start_in_transition := false
+var to_run_on_transition : Callable
+
+const TRANSITION_WAIT_TIME = 0.2
+
 func _ready() -> void:
 	process_physics_priority = -1000
 	process_priority = 1000
@@ -35,17 +43,22 @@ func _ready() -> void:
 	
 	
 	transition_effect = ColorRect.new()
-	transition_effect.position = -viewport_size / 2
+	#transition_effect.position = -viewport_size / 2
+	transition_effect.position = Vector2(0, 0)
 	transition_effect.size = viewport_size
 	transition_effect.material = transition_shader
 	transition_effect.z_index = 2000
 	
-	var transition_back_buffer_copy := BackBufferCopy.new()
-	transition_back_buffer_copy.z_index = 2000
-	transition_back_buffer_copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
+	#var transition_back_buffer_copy := BackBufferCopy.new()
+	#transition_back_buffer_copy.z_index = 2000
+	#transition_back_buffer_copy.copy_mode = BackBufferCopy.COPY_MODE_VIEWPORT
 	
-	transition_back_buffer_copy.add_child(transition_effect)
-	get_node("/root").add_child.call_deferred(transition_back_buffer_copy)
+	#transition_back_buffer_copy.add_child(transition_effect)
+	var new_canvas_layer := CanvasLayer.new()
+	new_canvas_layer.layer = 1000
+	
+	new_canvas_layer.add_child(transition_effect)
+	get_node("/root").add_child.call_deferred(new_canvas_layer)
 	
 func _physics_process(delta: float) -> void:
 	polygons_to_draw = []
@@ -60,8 +73,7 @@ func add_polygon_light(polygon: Array[PackedVector2Array], light_energy: float, 
 	)
 
 func _process(delta: float) -> void:
-	transition_timer += delta
-	transition_effect.material.set_shader_parameter("time", transition_timer)
+	_handle_transitioning(delta)
 	
 	var polygon_edges : PackedVector4Array = []
 	
@@ -89,3 +101,39 @@ func _process(delta: float) -> void:
 	
 	
 	color_rect.material.set_shader_parameter("polygon_edges", texture)
+
+func _handle_transitioning(delta: float) -> void:
+	transition_timer += delta
+	
+	var converted_time : float
+	if transitioning_out:
+		converted_time = transition_timer ** 3 * 1.4
+	else:
+		converted_time = (0.8939 - transition_timer) ** 3 * 1.4
+	
+	if transition_timer > 0.8939 + TRANSITION_WAIT_TIME and automatically_start_in_transition:
+		start_in_transition()
+	
+	if transition_timer > 0.8939 and transitioning:
+		transitioning = false
+		if transitioning_out and to_run_on_transition.is_valid():
+			to_run_on_transition.call()
+	
+	if transitioning or automatically_start_in_transition:
+		transition_effect.material.set_shader_parameter("time", converted_time)
+	else:
+		transition_effect.material.set_shader_parameter("time", 0)
+
+func start_out_transition(start_in_transition: bool, to_run: Callable = Callable()) -> void:
+	transitioning_out = true
+	transitioning = true
+	transition_timer = 0
+	
+	automatically_start_in_transition = start_in_transition
+	to_run_on_transition = to_run
+
+func start_in_transition() -> void:
+	transitioning_out = false
+	transitioning = true
+	transition_timer = 0
+	automatically_start_in_transition = false

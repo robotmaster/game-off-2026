@@ -32,6 +32,22 @@ var last_on_floor_spot := Vector2()
 
 var saved_jumps : Array[Dictionary]
 
+func _revert_jump() -> void:
+	var saved_info : Dictionary = saved_jumps.pop_back()
+	%JumpBoostingTimer.stop()
+	%JumpBufferTimer.stop()
+	%CoyoteTimer.stop()
+	global_position = saved_info["player_pos"]
+	Room.color_1_parent.global_position = saved_info["red_info"]["pos"]
+	Room.color_1_parent.global_rotation = saved_info["red_info"]["rot"]
+	Room.color_1_parent.global_scale = saved_info["red_info"]["scale"]
+	Room.color_2_parent.global_position = saved_info["green_info"]["pos"]
+	Room.color_2_parent.global_rotation = saved_info["green_info"]["rot"]
+	Room.color_2_parent.global_scale = saved_info["green_info"]["scale"]
+	Room.color_3_parent.global_position = saved_info["blue_info"]["pos"]
+	Room.color_3_parent.global_rotation = saved_info["blue_info"]["rot"]
+	Room.color_3_parent.global_scale = saved_info["blue_info"]["scale"]
+
 func _physics_process(delta: float) -> void:
 	$PointLight2D.visible = true
 	if Room.is_editing:
@@ -39,21 +55,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		$PointLight2D.energy = PLAYING_LIGHT_ENERGY
 	
+	if VisualTools.transitioning:
+		return
+	
 	if Input.is_action_just_pressed("revert_jump") and not Room.is_editing and len(saved_jumps) > 0:
-		var saved_info : Dictionary = saved_jumps.pop_back()
-		%JumpBoostingTimer.stop()
-		%JumpBufferTimer.stop()
-		%CoyoteTimer.stop()
-		global_position = saved_info["player_pos"]
-		Room.color_1_parent.global_position = saved_info["red_info"]["pos"]
-		Room.color_1_parent.global_rotation = saved_info["red_info"]["rot"]
-		Room.color_1_parent.global_scale = saved_info["red_info"]["scale"]
-		Room.color_2_parent.global_position = saved_info["green_info"]["pos"]
-		Room.color_2_parent.global_rotation = saved_info["green_info"]["rot"]
-		Room.color_2_parent.global_scale = saved_info["green_info"]["scale"]
-		Room.color_3_parent.global_position = saved_info["blue_info"]["pos"]
-		Room.color_3_parent.global_rotation = saved_info["blue_info"]["rot"]
-		Room.color_3_parent.global_scale = saved_info["blue_info"]["scale"]
+		VisualTools.start_out_transition(true, _revert_jump)
 		return
 	
 	

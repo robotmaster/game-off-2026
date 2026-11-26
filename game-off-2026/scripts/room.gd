@@ -28,19 +28,19 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	%PolygonMoveAreas.update_allowed_transforms()
 	
-	if Input.is_action_just_pressed("toggle_play"):
+	if Input.is_action_just_pressed("toggle_play") and not VisualTools.transitioning:
 		if is_editing or (not $Player.is_locked and len(allowed_polygon_transforms) > 0):
 			toggle_editing()
 	
 	%PolygonMoveAreas.update_polygon_lights()
 	
-	if Input.is_action_just_pressed("switch_edit") and is_editing:
+	if Input.is_action_just_pressed("switch_edit") and is_editing and not VisualTools.transitioning:
 		transform_editing_index += 1
 	
 	if transform_editing_index >= len(allowed_polygon_transforms):
 		transform_editing_index = 0
 	
-	if Input.is_action_just_pressed("reset"):
+	if Input.is_action_just_pressed("reset") and not VisualTools.transitioning:
 		reset_room()
 	
 	%IntersectionArea.do_polygon_collisions()
@@ -65,7 +65,13 @@ func toggle_editing() -> void:
 	is_editing = not is_editing
 
 func reset_room() -> void:
+	VisualTools.start_out_transition(true, _reset_room)
+
+func _reset_room() -> void:
 	get_tree().reload_current_scene()
 
 func go_to_next_room() -> void:
-	get_tree().change_scene_to_file(LevelManager.next_room())
+	VisualTools.start_out_transition(true, _go_to_next_room.bind(LevelManager.next_room()))
+
+func _go_to_next_room(room : String) -> void:
+	get_tree().change_scene_to_file(room)

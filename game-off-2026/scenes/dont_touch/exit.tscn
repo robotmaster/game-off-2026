@@ -12,7 +12,7 @@ func _ready() -> void:
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_apwu6"]
-size = Vector2(26, 30)
+size = Vector2(26, 1)
 
 [sub_resource type="Gradient" id="Gradient_l0aq0"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
@@ -31,7 +31,7 @@ texture = ExtResource("1_l0aq0")
 offset = Vector2(0, -15)
 
 [node name="Area2D" type="CollisionShape2D" parent="." unique_id=1261109021]
-position = Vector2(0, -15)
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_apwu6")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1187291696]

@@ -20,6 +20,8 @@ func _physics_process(delta: float) -> void:
 	_center_polygon_on_centroid()
 
 func _move_polygon(delta: float) -> void:
+	if VisualTools.transitioning:
+		return
 	if Room.allowed_polygon_transforms[Room.transform_editing_index]["transform"] == Room.PolygonTransforms.Translate:
 		if Input.is_action_pressed("move_slow"):
 			global_position += Input.get_vector("left", "right", "up", "down") * delta * POLYGON_MOVE_SPEED * SLOW_MOVE_MULT
