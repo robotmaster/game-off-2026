@@ -23,7 +23,8 @@ shader_parameter/alpha = 0.4
 shader_parameter/channel_colors = Color(0.9452769, 0.8328435, 1, 1)
 shader_parameter/circle_distance = 30.0
 shader_parameter/circle_speed = 5.0
-shader_parameter/circle_color = 0.8
+shader_parameter/circle_color_mult = Color(0.8509804, 0.7882353, 0.8392157, 1)
+shader_parameter/circle_color_add = Color(0.19215687, 0.13333334, 0.19215687, 1)
 shader_parameter/circle_radius = 3.0
 shader_parameter/time = 0.0
 

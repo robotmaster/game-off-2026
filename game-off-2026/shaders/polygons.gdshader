@@ -6,7 +6,8 @@ uniform vec3 channel_colors : source_color;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 uniform float circle_distance;
 uniform float circle_speed;
-uniform float circle_color;
+uniform vec3 circle_color_mult : source_color;
+uniform vec3 circle_color_add : source_color;
 uniform float circle_radius;
 
 uniform float time;
@@ -22,14 +23,14 @@ void fragment() {
 		float adjusted_y = mod(FRAGCOORD.y + time * circle_speed, circle_distance) - circle_distance / 2.0;
 		
 		if (pow(adjusted_x, 2.0) + pow(adjusted_y, 2.0) < radius_squared) {
-			original_color.rgb = vec3(1, 1, 1) - (vec3(1, 1, 1) - original_color.rgb) * circle_color;
+			original_color.rgb = original_color.rgb * circle_color_mult + circle_color_add;
 		}
 		
 		adjusted_x = mod(FRAGCOORD.x - circle_distance / 2.0 + time * circle_speed * 2.0, circle_distance) - circle_distance / 2.0;
 		adjusted_y = mod(FRAGCOORD.y - circle_distance / 2.0 + time * circle_speed, circle_distance) - circle_distance / 2.0;
 		
 		if (pow(adjusted_x, 2.0) + pow(adjusted_y, 2.0) < radius_squared) {
-			original_color.rgb = vec3(1, 1, 1) - (vec3(1, 1, 1) - original_color.rgb) * circle_color;
+			original_color.rgb = original_color.rgb * circle_color_mult + circle_color_add;
 		}
 		
 	}

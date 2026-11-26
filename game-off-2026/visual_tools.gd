@@ -14,7 +14,7 @@ var transitioning := false
 var automatically_start_in_transition := false
 var to_run_on_transition : Callable
 
-const TRANSITION_WAIT_TIME = 0.15
+const TRANSITION_WAIT_TIME = 0.07
 
 func _ready() -> void:
 	process_physics_priority = -1000
@@ -109,15 +109,14 @@ func _handle_transitioning(delta: float) -> void:
 	if transitioning_out:
 		converted_time = transition_timer ** 4 * 1.9
 	else:
-		converted_time = (0.8477 - transition_timer) ** 4 * 1.9
+		converted_time = (0.8477 + TRANSITION_WAIT_TIME - transition_timer) ** 4 * 1.9
 	
-	if transition_timer > 0.8477 + TRANSITION_WAIT_TIME and automatically_start_in_transition:
-		start_in_transition()
-	
-	if transition_timer > 0.8477 and transitioning:
+	if transition_timer > 0.8477 + TRANSITION_WAIT_TIME:
 		transitioning = false
 		if transitioning_out and to_run_on_transition.is_valid():
 			to_run_on_transition.call()
+		if automatically_start_in_transition:
+			start_in_transition()
 	
 	if transitioning or automatically_start_in_transition:
 		transition_effect.material.set_shader_parameter("time", converted_time)
@@ -125,6 +124,8 @@ func _handle_transitioning(delta: float) -> void:
 		transition_effect.material.set_shader_parameter("time", 0)
 
 func start_out_transition(start_in_transition: bool, to_run: Callable = Callable()) -> void:
+	if transitioning:
+		return
 	transitioning_out = true
 	transitioning = true
 	transition_timer = 0
@@ -133,6 +134,8 @@ func start_out_transition(start_in_transition: bool, to_run: Callable = Callable
 	to_run_on_transition = to_run
 
 func start_in_transition() -> void:
+	if transitioning:
+		return
 	transitioning_out = false
 	transitioning = true
 	transition_timer = 0
