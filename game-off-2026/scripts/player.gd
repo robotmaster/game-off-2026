@@ -37,6 +37,7 @@ func _revert_jump() -> void:
 	%JumpBoostingTimer.stop()
 	%JumpBufferTimer.stop()
 	%CoyoteTimer.stop()
+	velocity = Vector2(0, 0)
 	global_position = saved_info["player_pos"]
 	Room.color_1_parent.global_position = saved_info["red_info"]["pos"]
 	Room.color_1_parent.global_rotation = saved_info["red_info"]["rot"]
@@ -56,6 +57,7 @@ func _physics_process(delta: float) -> void:
 		$PointLight2D.energy = PLAYING_LIGHT_ENERGY
 	
 	if VisualTools.transitioning:
+		velocity = Vector2(0, 0)
 		return
 	
 	if Input.is_action_just_pressed("revert_jump") and not Room.is_editing and len(saved_jumps) > 0:
@@ -121,11 +123,20 @@ func _physics_process(delta: float) -> void:
 		%JumpBoostingTimer.start()
 		_holding_jump_after_jump = true
 	if not is_locked and not %JumpBoostingTimer.is_stopped():
+		%CoyoteTimer.stop()
 		velocity.y = JUMP_VELOCITY
 	
 	if not is_locked:
 		_handle_horizontal_movement(delta)
+	
+	#move_and_slide()
+	var saved := velocity
+	velocity.y = 0
 	move_and_slide()
+	velocity.y = saved.y
+	velocity.x = 0
+	move_and_slide()
+	velocity.x = saved.x
 	
 	if is_locked:
 		locked_flash_timer += delta
