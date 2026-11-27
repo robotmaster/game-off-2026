@@ -21,11 +21,11 @@ const rooms = [
 ]
 
 const room_to_tip = {
-	"res://scenes/rooms/basics/intro.tscn": "Get to the exit.\nIt's too easy!",
+	"res://scenes/rooms/basics/intro.tscn": "Get to the exit.\nIt's easy!",
 	"res://scenes/rooms/basics/polygon_intro.tscn": "Red + Green + Blue = White\nand maybe something else",
 	"res://scenes/rooms/basics/polygon_intro_2.tscn": "Something else you might wanna know:\nR to reset\nB to undo your last jump",
 	"res://scenes/rooms/moving/moving_poly_intro.tscn": "Legend goes that entering areas of high energy gives you special powers.",
-	"res://scenes/rooms/moving/moving_2.tscn": "This one is easy.\nBy the way, how many holes are in a straw?",
+	"res://scenes/rooms/moving/moving_2.tscn": "Use Shift for precision moving.",
 	"res://scenes/rooms/moving/two_areas.tscn": "Remember what I said about the high energy?\nEnergy can come in different forms, you know?",
 	"res://scenes/rooms/moving/two_areas_2.tscn": "Life Advice:\nEverything has an upside and a downside.",
 	"res://scenes/rooms/moving/falling_lock_intro.tscn": "Some people pass out after using immense power.",
