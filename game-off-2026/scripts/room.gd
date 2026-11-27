@@ -1,6 +1,9 @@
 extends Node2D
 class_name RoomRoot
 
+signal allowed_transformed_changed
+signal editing_changed
+
 @export_group("Don't Touch")
 @export var color_1_parent : Node2D
 @export var color_2_parent : Node2D
@@ -26,7 +29,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	%PolygonMoveAreas.update_allowed_transforms()
+	_update_allowed_transforms()
 	
 	if Input.is_action_just_pressed("toggle_play") and not VisualTools.transitioning:
 		if is_editing or (not $Player.is_locked and len(allowed_polygon_transforms) > 0):
@@ -36,6 +39,7 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("switch_edit") and is_editing and not VisualTools.transitioning:
 		transform_editing_index += 1
+		editing_changed.emit()
 	
 	if transform_editing_index >= len(allowed_polygon_transforms):
 		transform_editing_index = 0
@@ -44,6 +48,33 @@ func _physics_process(_delta: float) -> void:
 		reset_room()
 	
 	%IntersectionArea.do_polygon_collisions()
+
+func _update_allowed_transforms() -> void:
+	var saved_allowed := allowed_polygon_transforms.duplicate()
+	
+	%PolygonMoveAreas.update_allowed_transforms()
+	
+	
+	for saved : Dictionary in saved_allowed:
+		var found := false
+		for allowed : Dictionary in allowed_polygon_transforms:
+			if saved["node"] == allowed["node"] and saved["transform"] == allowed["transform"]:
+				found = true
+				break
+		if not found:
+			allowed_transformed_changed.emit()
+			return
+	
+	
+	for allowed : Dictionary in allowed_polygon_transforms:
+		var found := false
+		for saved : Dictionary in saved_allowed:
+			if saved["node"] == allowed["node"] and saved["transform"] == allowed["transform"]:
+				found = true
+				break
+		if not found:
+			allowed_transformed_changed.emit()
+			return
 
 func get_children_polygons(parent: Node2D) -> Array[Polygon2D]:
 	var children := []
@@ -71,7 +102,7 @@ func _reset_room() -> void:
 	get_tree().reload_current_scene()
 
 func go_to_next_room() -> void:
-	VisualTools.start_out_transition(true, _go_to_next_room.bind(LevelManager.next_room()))
+	VisualTools.start_out_transition(false, _go_to_next_room)
 
-func _go_to_next_room(room : String) -> void:
-	get_tree().change_scene_to_file(room)
+func _go_to_next_room() -> void:
+	get_tree().change_scene_to_file(LevelManager.next_room())

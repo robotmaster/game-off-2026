@@ -18,7 +18,6 @@ blue_translate_allowed = true
 polygon = PackedVector2Array(-304, 160, -192, 160, -192, 96, -304, 96)
 red_translate_allowed = true
 green_translate_allowed = true
-blue_translate_allowed = true
 
 [node name="PolygonMoveArea3" parent="SpecialElements/PolygonMoveAreas" parent_id_path=PackedInt32Array(907422819) index="2" unique_id=899298405 instance=ExtResource("2_yiuyg")]
 position = Vector2(12, -22)

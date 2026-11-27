@@ -9,10 +9,12 @@ const CENTER_LINE_COLOR_MULT = Color(0.3, 0.3, 0.3, 0.9)
 const CENTER_LINE_COLOR_ADD_EDIT = Color(0.7, 0.7, 0.7, 0)
 const CENTER_LINE_COLOR_ADD_PLAY = Color(0.4, 0.4, 0.4, 0)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if not LevelManager.show_centroids:
+		return
 	var polygons_to_draw = [Room.color_1_parent, Room.color_2_parent, Room.color_3_parent]
 	
 	for polygon_parent : PolygonParent in polygons_to_draw:

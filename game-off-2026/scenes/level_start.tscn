@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://pqytye8mlanu"]
+
+[ext_resource type="FontFile" uid="uid://dj4krrmnr7cdn" path="res://fonts/ari-w9500-display.ttf" id="1_1ag0p"]
+[ext_resource type="Shader" uid="uid://nnf5log83eb5" path="res://shaders/level_start.gdshader" id="1_2kkdi"]
+[ext_resource type="FontFile" uid="uid://c18pqewn23vbu" path="res://fonts/Gontserrat-Bold.ttf" id="3_2kkdi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2kkdi"]
+shader = ExtResource("1_2kkdi")
+shader_parameter/alpha = 1.0
+
+[sub_resource type="GDScript" id="GDScript_1ag0p"]
+script/source = "extends Node2D
+
+const FADE_TIME = 1.0
+const CONTINUE_TEXT_FADE_START = 3.5
+const CONTINUE_TEXT_FADE_END = 4
+
+var time := 0.0
+var fadeout_target := -1.0
+
+func _ready() -> void:
+	modulate.a = 0
+
+func _process(delta: float) -> void:
+	modulate.a = 1
+	time += delta
+	
+	var alpha : float
+	if time < FADE_TIME:
+		alpha = time / FADE_TIME
+	elif fadeout_target > 0:
+		if time > fadeout_target:
+			VisualTools.start_in_transition()
+			get_tree().change_scene_to_file(LevelManager.get_room())
+		alpha = (fadeout_target - time) / FADE_TIME
+	else:
+		alpha = 1
+		
+	material.set_shader_parameter(\"alpha\", alpha)
+	
+	if time < CONTINUE_TEXT_FADE_START:
+		%ToContinue.modulate.a = 0
+	elif time < CONTINUE_TEXT_FADE_END:
+		%ToContinue.modulate.a = (time - CONTINUE_TEXT_FADE_START) / (CONTINUE_TEXT_FADE_END - CONTINUE_TEXT_FADE_START)
+	else:
+		%ToContinue.modulate.a = 1
+	
+	%LevelLabel.text = \"Level \" + str(LevelManager.room_number + 1)
+	%Tip.text = LevelManager.room_to_tip[LevelManager.rooms[LevelManager.room_number]]
+	
+	if Input.is_action_just_pressed(\"toggle_play\") and time > FADE_TIME and fadeout_target < 0:
+		fadeout_target = time + FADE_TIME
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_j4v5w"]
+font = ExtResource("1_1ag0p")
+font_size = 70
+font_color = Color(0.87, 0.1131, 0.1131, 1)
+outline_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ag0p"]
+line_spacing = 2.0
+font = ExtResource("3_2kkdi")
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_aveqj"]
+font = ExtResource("3_2kkdi")
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_2kkdi"]
+line_spacing = 2.0
+font = ExtResource("3_2kkdi")
+font_size = 20
+
+[sub_resource type="GDScript" id="GDScript_aveqj"]
+script/source = "extends Camera2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	zoom = Vector2(1, 1)
+"
+
+[node name="LevelStart" type="CanvasGroup" unique_id=1279335496]
+material = SubResource("ShaderMaterial_2kkdi")
+script = SubResource("GDScript_1ag0p")
+
+[node name="LevelLabel" type="Label" parent="." unique_id=2054475376]
+unique_name_in_owner = true
+offset_left = -638.0
+offset_top = -154.0
+offset_right = 638.0
+offset_bottom = -49.0
+text = "Level 4"
+label_settings = SubResource("LabelSettings_j4v5w")
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TipText" type="Label" parent="." unique_id=1692735934]
+visible = false
+offset_left = -290.0
+offset_top = -56.0
+offset_right = 290.0
+offset_bottom = -27.0
+text = "Tip:"
+label_settings = SubResource("LabelSettings_1ag0p")
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Tip" type="Label" parent="." unique_id=1316265742]
+unique_name_in_owner = true
+offset_left = -290.0
+offset_top = -58.0
+offset_right = 290.0
+offset_bottom = 101.0
+text = "Arrow to move."
+label_settings = SubResource("LabelSettings_aveqj")
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ToContinue" type="Label" parent="." unique_id=814338240]
+unique_name_in_owner = true
+offset_left = -290.0
+offset_top = 121.0
+offset_right = 290.0
+offset_bottom = 280.0
+text = "Z to continue."
+label_settings = SubResource("LabelSettings_2kkdi")
+horizontal_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=818803488]
+zoom = Vector2(3, 3)
+script = SubResource("GDScript_aveqj")

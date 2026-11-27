@@ -7,7 +7,6 @@
 script = ExtResource("1_weqsq")
 
 [node name="ColorBg" type="Sprite2D" parent="." unique_id=695791868]
-use_parent_material = true
 position = Vector2(-60, 0)
 texture = ExtResource("2_lew5o")
 hframes = 4
@@ -41,7 +40,7 @@ texture = ExtResource("2_lew5o")
 hframes = 4
 frame = 3
 
-[node name="WhiteHighlight" type="ColorRect" parent="." unique_id=186484038]
+[node name="GreenHighlight" type="ColorRect" parent="." unique_id=186484038]
 use_parent_material = true
 offset_left = -35.0
 offset_top = -15.0
@@ -49,3 +48,24 @@ offset_right = -5.0
 offset_bottom = 15.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 color = Color(0.6424834, 0.91948235, 0.577884, 0.63529414)
+
+[node name="WhiteHighlightTransform" type="ColorRect" parent="." unique_id=1594380896]
+offset_left = -35.0
+offset_top = -15.0
+offset_right = -5.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="WhiteHighlightRotate" type="ColorRect" parent="." unique_id=1324322759]
+offset_left = 5.0
+offset_top = -15.0
+offset_right = 35.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="WhiteHighlightScale" type="ColorRect" parent="." unique_id=154676320]
+offset_left = 45.0
+offset_top = -15.0
+offset_right = 75.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
