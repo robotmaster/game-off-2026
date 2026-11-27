@@ -105,4 +105,4 @@ func go_to_next_room() -> void:
 	VisualTools.start_out_transition(false, _go_to_next_room)
 
 func _go_to_next_room() -> void:
-	get_tree().change_scene_to_file(LevelManager.next_room())
+	get_tree().change_scene_to_packed(LevelManager.next_room())

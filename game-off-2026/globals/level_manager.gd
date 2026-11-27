@@ -1,5 +1,7 @@
 extends Node
 
+const LEVEL_START_SCENE = preload("res://scenes/level_start.tscn")
+
 var room_number := 0
 
 var show_centroids := false
@@ -46,11 +48,11 @@ func _ready() -> void:
 func get_room() -> String:
 	return rooms[room_number]
 
-func next_room() -> String:
+func next_room() -> PackedScene:
 	room_number += 1
 	if room_number >= len(rooms):
-		return ""
-	return "res://scenes/level_start.tscn"
+		return LEVEL_START_SCENE
+	return LEVEL_START_SCENE
 
 func _process(_delta: float) -> void:
 	var centroid_index := rooms.find(first_room_with_centroids)

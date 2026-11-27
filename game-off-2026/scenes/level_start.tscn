@@ -18,8 +18,28 @@ const CONTINUE_TEXT_FADE_END = 4
 var time := 0.0
 var fadeout_target := -1.0
 
+var level_file : PackedScene
+var level_loaded := false
+
 func _ready() -> void:
 	modulate.a = 0
+	await _load_level()
+
+func _load_level() -> void:
+	var path := LevelManager.get_room()
+	ResourceLoader.load_threaded_request(path)
+	while true:
+		var status := ResourceLoader.load_threaded_get_status(path)
+		match status:
+			ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+				await get_tree().process_frame
+			ResourceLoader.THREAD_LOAD_LOADED:
+				level_loaded = true
+				level_file = ResourceLoader.load_threaded_get(path)
+				return
+			_:
+				push_error(\"Failed to load: \" + path)
+				return
 
 func _process(delta: float) -> void:
 	modulate.a = 1
@@ -29,9 +49,9 @@ func _process(delta: float) -> void:
 	if time < FADE_TIME:
 		alpha = time / FADE_TIME
 	elif fadeout_target > 0:
-		if time > fadeout_target:
+		if time > fadeout_target and level_loaded:
 			VisualTools.start_in_transition()
-			get_tree().change_scene_to_file(LevelManager.get_room())
+			get_tree().change_scene_to_packed(level_file)
 		alpha = (fadeout_target - time) / FADE_TIME
 	else:
 		alpha = 1
