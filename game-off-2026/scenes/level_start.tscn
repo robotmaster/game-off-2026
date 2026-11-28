@@ -86,6 +86,8 @@ font_size = 40
 [sub_resource type="LabelSettings" id="LabelSettings_aveqj"]
 font = ExtResource("3_2kkdi")
 font_size = 25
+outline_size = 5
+outline_color = Color(0.45, 0.45, 0.45, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kkdi"]
 line_spacing = 2.0
