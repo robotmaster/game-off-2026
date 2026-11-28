@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://qsfnwordlsme" path="res://scripts/current_polygon_outline.gd" id="6_7dqbv"]
 [ext_resource type="Script" uid="uid://bnsxvblbr143l" path="res://scripts/polygon_canvas.gd" id="8_dynfe"]
 [ext_resource type="Shader" uid="uid://djb465hsx6mjh" path="res://shaders/polygon_outline.gdshader" id="9_3j2fx"]
-[ext_resource type="Script" uid="uid://b4c2tt5ppfj4" path="res://scripts/polygon_centroid_display.gd" id="9_eom3m"]
 [ext_resource type="Script" uid="uid://cj0q4ogykxlvw" path="res://scripts/intersection_area.gd" id="10_vfrn5"]
 [ext_resource type="PackedScene" uid="uid://cgxb67qxv75m" path="res://scenes/dont_touch/polygon_info_ui.tscn" id="15_vfrn5"]
 
@@ -141,9 +140,8 @@ material = SubResource("ShaderMaterial_23wr2")
 script = ExtResource("6_7dqbv")
 Room = NodePath("../../..")
 
-[node name="PolygonCentroidDisplay" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=596787214 node_paths=PackedStringArray("Room")]
-script = ExtResource("9_eom3m")
-Room = NodePath("../../..")
+[node name="PolygonCentroidDisplay" type="Node2D" parent="MainPolygons/PolygonDisplays" unique_id=596787214]
+visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1856965162]
 script = SubResource("GDScript_dynfe")

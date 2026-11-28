@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b8ioekin6ogii" path="res://scenes/room.tscn" id="1_6gygu"]
 [ext_resource type="PackedScene" uid="uid://bb5wm8lt3m5hk" path="res://scenes/special_scenes/polygon_move_area.tscn" id="2_6gygu"]
 [ext_resource type="Texture2D" uid="uid://cev8n5oedbx37" path="res://sprites/trigger_hints.png" id="3_n74t1"]
+[ext_resource type="FontFile" uid="uid://dj4krrmnr7cdn" path="res://fonts/ari-w9500-display.ttf" id="4_j283h"]
 
 [sub_resource type="GDScript" id="GDScript_jw5gh"]
 script/source = "extends TriggerHint
@@ -33,6 +34,11 @@ func override_hint_time_increment(delta: float) -> void:
 	else:
 		spawn_hint_timer = spawn_hint_initial_value
 "
+
+[sub_resource type="LabelSettings" id="LabelSettings_jw5gh"]
+font = ExtResource("4_j283h")
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="GDScript" id="GDScript_j283h"]
 script/source = "extends TriggerHint
@@ -114,8 +120,8 @@ var moved := false
 var original_positions := [Vector2(-9999, 0), Vector2(-9999, 0), Vector2(-9999, 0)]
 
 func inherit_ready() -> void:
-	spawn_hint_timer = -16.0
-	spawn_hint_initial_value = -16.0
+	spawn_hint_timer = -5.0
+	spawn_hint_initial_value = -5.0
 
 func override_hint_time_increment(delta: float) -> void:
 	if original_positions[0].x == -9999:
@@ -172,7 +178,17 @@ polygon = PackedVector2Array(-224, 160, -224, 192, -256, 192, -256, 160)
 [node name="XTrigger" type="Area2D" parent="." index="6" unique_id=1116313981]
 script = SubResource("GDScript_jw5gh")
 
-[node name="Hint" type="Sprite2D" parent="XTrigger" index="0" unique_id=1296088840]
+[node name="Hint" type="Node2D" parent="XTrigger" index="0" unique_id=376888107]
+
+[node name="Label" type="Label" parent="XTrigger/Hint" index="0" unique_id=1237231840]
+offset_left = -246.0
+offset_top = 59.0
+offset_right = -192.0
+offset_bottom = 82.0
+text = "Switch"
+label_settings = SubResource("LabelSettings_jw5gh")
+
+[node name="Hint2" type="Sprite2D" parent="XTrigger/Hint" index="1" unique_id=1296088840]
 position = Vector2(-264, 67)
 texture = ExtResource("3_n74t1")
 vframes = 10
@@ -227,10 +243,21 @@ script = SubResource("GDScript_n74t1")
 position = Vector2(-264, 120)
 shape = SubResource("RectangleShape2D_apwu6")
 
-[node name="Hint" type="Sprite2D" parent="ZTrigger" index="1" unique_id=2042505563]
-position = Vector2(-264, 67)
+[node name="Hint" type="Node2D" parent="ZTrigger" index="1" unique_id=1099286863]
+position = Vector2(-264, 120)
+
+[node name="Hint" type="Sprite2D" parent="ZTrigger/Hint" index="0" unique_id=1445898699]
+position = Vector2(0, -52)
 texture = ExtResource("3_n74t1")
 vframes = 10
+
+[node name="Label" type="Label" parent="ZTrigger/Hint" index="1" unique_id=496992639]
+offset_left = 18.0
+offset_top = -60.0
+offset_right = 82.0
+offset_bottom = -37.0
+text = "Toggle"
+label_settings = SubResource("LabelSettings_jw5gh")
 
 [node name="ZExitTrigger" type="Area2D" parent="." index="10" unique_id=107251399]
 script = SubResource("GDScript_2kkdi")
@@ -239,10 +266,20 @@ script = SubResource("GDScript_2kkdi")
 position = Vector2(-264, 120)
 shape = SubResource("RectangleShape2D_apwu6")
 
-[node name="Hint" type="Sprite2D" parent="ZExitTrigger" index="1" unique_id=107611369]
+[node name="Hint" type="Node2D" parent="ZExitTrigger" index="1" unique_id=130213182]
+
+[node name="Hint" type="Sprite2D" parent="ZExitTrigger/Hint" index="0" unique_id=107611369]
 position = Vector2(-264, 67)
 texture = ExtResource("3_n74t1")
 vframes = 10
+
+[node name="Label" type="Label" parent="ZExitTrigger/Hint" index="1" unique_id=1166701064]
+offset_left = -246.0
+offset_top = 59.0
+offset_right = -192.0
+offset_bottom = 82.0
+text = "Toggle"
+label_settings = SubResource("LabelSettings_jw5gh")
 
 [node name="Exit" parent="." index="11" unique_id=1218272071]
 position = Vector2(48, 64)
