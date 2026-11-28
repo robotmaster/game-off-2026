@@ -4,7 +4,7 @@ extends Node2D
 @export var color_representing : Color
 @export var node_representing : PolygonParent
 
-const OFF_MODULATE = Color(0.5, 0.4, 0.4)
+const OFF_MODULATE = Color(0.6, 0.5, 0.5)
 const PLAYING_MODULATE = Color(1, 1, 1, 0.6)
 const EDITING_MODULATE = Color(1, 1, 1, 0.85)
 
@@ -14,8 +14,8 @@ const WHITE_HIGHLIGHT_INTERPOLATE_TIME = 0.6
 const WHITE_HIGHLIGHT_HOLD_TIME = 0.2
 
 var transform_highlight_interpolate_timer := 0.0
-var rotate_highlight_interpolate_timer := 0.0
-var scale_highlight_interpolate_timer := 0.0
+#var rotate_highlight_interpolate_timer := 0.0
+#var scale_highlight_interpolate_timer := 0.0
 
 func _ready() -> void:
 	Room.allowed_transformed_changed.connect.call_deferred(_flash_highlight)
@@ -46,16 +46,6 @@ func _process(delta: float) -> void:
 			if Room.is_editing and Room.transform_editing_index == allowed_transform_index:
 				$GreenHighlight.position = $Translate.position - $GreenHighlight.size / 2
 				$GreenHighlight.visible = true
-		if allowed_transform["transform"] == Room.PolygonTransforms.Rotate:
-			$Rotate.modulate = Color(1, 1, 1)
-			if Room.is_editing and Room.transform_editing_index == allowed_transform_index:
-				$GreenHighlight.position = $Rotate.position - $GreenHighlight.size / 2
-				$GreenHighlight.visible = true
-		if allowed_transform["transform"] == Room.PolygonTransforms.Scale:
-			$Scale.modulate = Color(1, 1, 1)
-			if Room.is_editing and Room.transform_editing_index == allowed_transform_index:
-				$GreenHighlight.position = $Scale.position - $GreenHighlight.size / 2
-				$GreenHighlight.visible = true
 
 	transform_highlight_interpolate_timer -= delta
 	if transform_highlight_interpolate_timer > WHITE_HIGHLIGHT_INTERPOLATE_TIME - WHITE_HIGHLIGHT_HOLD_TIME:
@@ -65,23 +55,6 @@ func _process(delta: float) -> void:
 	else:
 		$WhiteHighlightTransform.modulate.a = 0
 	
-	rotate_highlight_interpolate_timer -= delta
-	if rotate_highlight_interpolate_timer > WHITE_HIGHLIGHT_INTERPOLATE_TIME - WHITE_HIGHLIGHT_HOLD_TIME:
-		$WhiteHighlightRotate.modulate.a = white_highlight_highest_alpha
-	if rotate_highlight_interpolate_timer > 0:
-		$WhiteHighlightRotate.modulate.a = rotate_highlight_interpolate_timer / (WHITE_HIGHLIGHT_INTERPOLATE_TIME - WHITE_HIGHLIGHT_HOLD_TIME) * white_highlight_highest_alpha
-	else:
-		$WhiteHighlightRotate.modulate.a = 0
-	
-	scale_highlight_interpolate_timer -= delta
-	if scale_highlight_interpolate_timer > WHITE_HIGHLIGHT_INTERPOLATE_TIME - WHITE_HIGHLIGHT_HOLD_TIME:
-		$WhiteHighlightScale.modulate.a = white_highlight_highest_alpha
-	elif scale_highlight_interpolate_timer > 0:
-		$WhiteHighlightScale.modulate.a = scale_highlight_interpolate_timer / (WHITE_HIGHLIGHT_INTERPOLATE_TIME - WHITE_HIGHLIGHT_HOLD_TIME) * white_highlight_highest_alpha
-	else:
-		$WhiteHighlightScale.modulate.a = 0
-
-	
 
 func _flash_highlight() -> void:
 	for allowed_transform in Room.allowed_polygon_transforms:
@@ -90,10 +63,6 @@ func _flash_highlight() -> void:
 		
 		if allowed_transform["transform"] == Room.PolygonTransforms.Translate:
 			transform_highlight_interpolate_timer = WHITE_HIGHLIGHT_INTERPOLATE_TIME
-		if allowed_transform["transform"] == Room.PolygonTransforms.Rotate:
-			rotate_highlight_interpolate_timer = WHITE_HIGHLIGHT_INTERPOLATE_TIME
-		if allowed_transform["transform"] == Room.PolygonTransforms.Scale:
-			scale_highlight_interpolate_timer = WHITE_HIGHLIGHT_INTERPOLATE_TIME
 
 func _flash_editing() -> void:
 	var transform_editing : Dictionary = Room.allowed_polygon_transforms[Room.transform_editing_index]
@@ -102,9 +71,3 @@ func _flash_editing() -> void:
 	
 	if transform_editing["transform"] == Room.PolygonTransforms.Translate:
 		transform_highlight_interpolate_timer = WHITE_HIGHLIGHT_INTERPOLATE_TIME
-	
-	if transform_editing["transform"] == Room.PolygonTransforms.Rotate:
-		rotate_highlight_interpolate_timer = WHITE_HIGHLIGHT_INTERPOLATE_TIME
-	
-	if transform_editing["transform"] == Room.PolygonTransforms.Scale:
-		scale_highlight_interpolate_timer = WHITE_HIGHLIGHT_INTERPOLATE_TIME

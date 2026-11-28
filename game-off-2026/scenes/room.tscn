@@ -149,7 +149,7 @@ Room = NodePath("../../..")
 script = SubResource("GDScript_dynfe")
 
 [node name="PolygonInfoUIRed" parent="CanvasLayer" unique_id=1920260285 node_paths=PackedStringArray("Room", "node_representing") instance=ExtResource("15_vfrn5")]
-position = Vector2(-200, -160)
+position = Vector2(-130, -160)
 Room = NodePath("../..")
 color_representing = Color(1, 0, 0, 1)
 node_representing = NodePath("../../MainPolygons/PolygonCanvas/Red")
@@ -161,7 +161,7 @@ color_representing = Color(0, 1, 0, 1)
 node_representing = NodePath("../../MainPolygons/PolygonCanvas/Green")
 
 [node name="PolygonInfoUIBlue" parent="CanvasLayer" unique_id=1372237776 node_paths=PackedStringArray("Room", "node_representing") instance=ExtResource("15_vfrn5")]
-position = Vector2(200, -160)
+position = Vector2(130, -160)
 Room = NodePath("../..")
 color_representing = Color(0, 0, 1, 1)
 node_representing = NodePath("../../MainPolygons/PolygonCanvas/Blue")

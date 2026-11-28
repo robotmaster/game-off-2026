@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dd6tbfdoe7iv7"]
+
+[ext_resource type="Script" uid="uid://r5ch0e7q6icy" path="res://scripts/polygon_info_ui_COPY_OLD.gd" id="1_eyhop"]
+[ext_resource type="Texture2D" uid="uid://ibq1rp8ensw7" path="res://sprites/polygon_transforms.png" id="2_5ksef"]
+
+[node name="PolygonInfoUI" type="Node2D" unique_id=1920260285]
+script = ExtResource("1_eyhop")
+
+[node name="ColorBg" type="Sprite2D" parent="." unique_id=695791868]
+position = Vector2(-60, 0)
+texture = ExtResource("2_5ksef")
+hframes = 4
+
+[node name="ColorFill" type="ColorRect" parent="." unique_id=911657149]
+use_parent_material = true
+offset_left = -71.0
+offset_top = -11.0
+offset_right = -49.0
+offset_bottom = 11.0
+color = Color(1, 0, 0, 1)
+
+[node name="Translate" type="Sprite2D" parent="." unique_id=942880443]
+use_parent_material = true
+position = Vector2(-20, 0)
+texture = ExtResource("2_5ksef")
+hframes = 4
+frame = 1
+
+[node name="Rotate" type="Sprite2D" parent="." unique_id=634075983]
+use_parent_material = true
+position = Vector2(20, 0)
+texture = ExtResource("2_5ksef")
+hframes = 4
+frame = 2
+
+[node name="Scale" type="Sprite2D" parent="." unique_id=551556504]
+use_parent_material = true
+position = Vector2(60, 0)
+texture = ExtResource("2_5ksef")
+hframes = 4
+frame = 3
+
+[node name="GreenHighlight" type="ColorRect" parent="." unique_id=186484038]
+use_parent_material = true
+offset_left = -35.0
+offset_top = -15.0
+offset_right = -5.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(0.6424834, 0.91948235, 0.577884, 0.63529414)
+
+[node name="WhiteHighlightTransform" type="ColorRect" parent="." unique_id=1594380896]
+offset_left = -35.0
+offset_top = -15.0
+offset_right = -5.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="WhiteHighlightRotate" type="ColorRect" parent="." unique_id=1324322759]
+offset_left = 5.0
+offset_top = -15.0
+offset_right = 35.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="WhiteHighlightScale" type="ColorRect" parent="." unique_id=154676320]
+offset_left = 45.0
+offset_top = -15.0
+offset_right = 75.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
