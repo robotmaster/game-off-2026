@@ -65,12 +65,22 @@ void fragment() {
 			//check x is in range
 			if ((screen_point.x <= point_1.x && screen_point.x >= point_2.x) ||
 				(screen_point.x >= point_1.x && screen_point.x <= point_2.x)) {
-				
-				float slope = (point_2.y - point_1.y) / (point_2.x - point_1.x);
-				float y = point_1.y + (screen_point.x - point_1.x) * slope;
-				if (y > screen_point.y) {
+				if (point_2.x != point_1.x) {
 					
-					inside_polygon = !inside_polygon;
+					float slope = (point_2.y - point_1.y) / (point_2.x - point_1.x);
+					float y = point_1.y + (screen_point.x - point_1.x) * slope;
+					if (y > screen_point.y) {
+						
+						inside_polygon = !inside_polygon;
+					}
+				}
+				else {
+					if ((screen_point.y <= point_1.y && screen_point.y >= point_2.y)
+					|| (screen_point.y >= point_1.y && screen_point.y <= point_2.y)
+					) {
+						
+						inside_polygon = !inside_polygon;
+					}
 				}
 			}
 		}
